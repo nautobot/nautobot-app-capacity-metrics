@@ -2,6 +2,7 @@
 import sys
 from os import environ
 
+from django.conf import settings
 from django_rq.management.commands.rqworker import Command as DjangoRqCommand
 from prometheus_client import start_http_server, CollectorRegistry, multiprocess
 
@@ -28,6 +29,10 @@ class Command(DjangoRqCommand):
                 "The mandatory environ variable 'prometheus_multiproc_dir' is not defined, "
                 "please configure it or use the default 'rqworker' command instead."
             )
+
+        # If no queues have been specified on the command line, listen on all configured queues.
+        if len(args) < 1:
+            args = settings.RQ_QUEUES
 
         registry = CollectorRegistry()
         multiprocess.MultiProcessCollector(registry)
