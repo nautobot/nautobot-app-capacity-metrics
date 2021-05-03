@@ -681,38 +681,38 @@ python-versions = "*"
 
 [[package]]
 name = "nautobot"
-version = "1.0.0b4"
+version = "1.0.0"
 description = "Source of truth and network automation platform."
 category = "main"
 optional = false
 python-versions = ">=3.6,<4.0"
 
 [package.dependencies]
-Django = ">=3.1.7,<3.2.0"
+Django = ">=3.1.8,<3.2.0"
 django-cacheops = ">=5.1,<5.2"
 django-cors-headers = ">=3.7.0,<3.8.0"
 django-cryptography = ">=1.0,<1.1"
 django-filter = ">=2.4.0,<2.5.0"
 django-mptt = ">=0.11.0,<0.12.0"
 django-prometheus = ">=2.1.0,<2.2.0"
-django-redis = ">=4.12.1,<5.0.0"
-django-rq = ">=2.4.0,<3.0.0"
+django-redis = ">=4.12.1,<4.13.0"
+django-rq = ">=2.4.1,<2.5.0"
 django-tables2 = ">=2.3.4,<2.4.0"
 django-taggit = ">=1.3.0,<1.4.0"
-django-timezone-field = ">=4.1.1,<4.2.0"
+django-timezone-field = ">=4.1.2,<4.2.0"
 django-webserver = ">=1.2.0,<1.3.0"
-djangorestframework = ">=3.12.2,<3.13.0"
+djangorestframework = ">=3.12.4,<3.13.0"
 drf-yasg = {version = ">=1.20.0,<1.21.0", extras = ["validation"]}
-GitPython = ">=3.1.13,<3.2.0"
+GitPython = ">=3.1.15,<3.2.0"
 graphene-django = ">=2.15.0,<2.16.0"
 importlib-metadata = {version = ">=3.4.0,<3.5.0", markers = "python_version < \"3.8\""}
 Jinja2 = ">=2.11.3,<2.12.0"
-Markdown = ">=3.3.3,<3.4.0"
+Markdown = ">=3.3.4,<3.4.0"
 netaddr = ">=0.8.0,<0.9.0"
 Pillow = ">=8.1.0,<8.2.0"
 psycopg2-binary = ">=2.8.6,<2.9.0"
 pycryptodome = ">=3.10.1,<3.11.0"
-pyuwsgi = ">=2.0.19,<3.0.0"
+pyuwsgi = ">=2.0.19.1.post0,<2.1.0.0"
 PyYAML = ">=5.4.1,<5.5.0"
 social-auth-app-django = ">=4.0.0,<5.0.0"
 svgwrite = ">=1.4.1,<1.5.0"
@@ -762,7 +762,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "pbr"
-version = "5.5.1"
+version = "5.6.0"
 description = "Python Build Reasonableness"
 category = "dev"
 optional = false
@@ -838,7 +838,7 @@ snowballstemmer = "*"
 
 [[package]]
 name = "pyjwt"
-version = "2.0.1"
+version = "2.1.0"
 description = "JSON Web Token implementation in Python"
 category = "main"
 optional = false
@@ -852,7 +852,7 @@ tests = ["pytest (>=6.0.0,<7.0.0)", "coverage[toml] (==5.0.4)"]
 
 [[package]]
 name = "pylint"
-version = "2.8.1"
+version = "2.8.2"
 description = "python code static checker"
 category = "dev"
 optional = false
@@ -1184,7 +1184,7 @@ python-versions = "*"
 
 [[package]]
 name = "typing-extensions"
-version = "3.7.4.3"
+version = "3.10.0.0"
 description = "Backported and Experimental Type Hints for Python 3.5+"
 category = "main"
 optional = false
@@ -1585,8 +1585,8 @@ mypy-extensions = [
     {file = "mypy_extensions-0.4.3.tar.gz", hash = "sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8"},
 ]
 nautobot = [
-    {file = "nautobot-1.0.0b4-py3-none-any.whl", hash = "sha256:d495e267efdc7cd8af1a7432721ac9eaf6dfda2a70969f9bfdaa4020554b414a"},
-    {file = "nautobot-1.0.0b4.tar.gz", hash = "sha256:3ac99981bfb23eb42e60f1c51d2d089dc9b273ff4b6d0d94d64328dfab9d4726"},
+    {file = "nautobot-1.0.0-py3-none-any.whl", hash = "sha256:f6cf363330f4dc24b3545c5484eb113dc1a82e7b20deff9b57f3c5e783dff066"},
+    {file = "nautobot-1.0.0.tar.gz", hash = "sha256:1fcdc8ffa6eaf3ad9c8fa3f8ec5ff437a1df44ffcd6003abee209c91d8f77efd"},
 ]
 netaddr = [
     {file = "netaddr-0.8.0-py2.py3-none-any.whl", hash = "sha256:9666d0232c32d2656e5e5f8d735f58fd6c7457ce52fc21c98d45f2af78f990ac"},
@@ -1605,8 +1605,8 @@ pathspec = [
     {file = "pathspec-0.8.1.tar.gz", hash = "sha256:86379d6b86d75816baba717e64b1a3a3469deb93bb76d613c9ce79edc5cb68fd"},
 ]
 pbr = [
-    {file = "pbr-5.5.1-py2.py3-none-any.whl", hash = "sha256:b236cde0ac9a6aedd5e3c34517b423cd4fd97ef723849da6b0d2231142d89c00"},
-    {file = "pbr-5.5.1.tar.gz", hash = "sha256:5fad80b613c402d5b7df7bd84812548b2a61e9977387a80a5fc5c396492b13c9"},
+    {file = "pbr-5.6.0-py2.py3-none-any.whl", hash = "sha256:c68c661ac5cc81058ac94247278eeda6d2e6aecb3e227b0387c30d277e7ef8d4"},
+    {file = "pbr-5.6.0.tar.gz", hash = "sha256:42df03e7797b796625b1029c0400279c7c34fd7df24a7d7818a1abb5b38710dd"},
 ]
 pillow = [
     {file = "Pillow-8.1.2-cp36-cp36m-macosx_10_10_x86_64.whl", hash = "sha256:5cf03b9534aca63b192856aa601c68d0764810857786ea5da652581f3a44c2b0"},
@@ -1728,12 +1728,12 @@ pydocstyle = [
     {file = "pydocstyle-6.0.0.tar.gz", hash = "sha256:164befb520d851dbcf0e029681b91f4f599c62c5cd8933fd54b1bfbd50e89e1f"},
 ]
 pyjwt = [
-    {file = "PyJWT-2.0.1-py3-none-any.whl", hash = "sha256:b70b15f89dc69b993d8a8d32c299032d5355c82f9b5b7e851d1a6d706dffe847"},
-    {file = "PyJWT-2.0.1.tar.gz", hash = "sha256:a5c70a06e1f33d81ef25eecd50d50bd30e34de1ca8b2b9fa3fe0daaabcf69bf7"},
+    {file = "PyJWT-2.1.0-py3-none-any.whl", hash = "sha256:934d73fbba91b0483d3857d1aff50e96b2a892384ee2c17417ed3203f173fca1"},
+    {file = "PyJWT-2.1.0.tar.gz", hash = "sha256:fba44e7898bbca160a2b2b501f492824fc8382485d3a6f11ba5d0c1937ce6130"},
 ]
 pylint = [
-    {file = "pylint-2.8.1-py3-none-any.whl", hash = "sha256:4236b7284853b779a8add49aca287a5899245894995c5591d2b5839a32482330"},
-    {file = "pylint-2.8.1.tar.gz", hash = "sha256:ad1bff19c46bfc6d2aeba4de5f76570d253df4915d2043ba61dc6a96233c4bd6"},
+    {file = "pylint-2.8.2-py3-none-any.whl", hash = "sha256:f7e2072654a6b6afdf5e2fb38147d3e2d2d43c89f648637baab63e026481279b"},
+    {file = "pylint-2.8.2.tar.gz", hash = "sha256:586d8fa9b1891f4b725f587ef267abe2a1bad89d6b184520c7f07a253dd6e217"},
 ]
 pylint-django = [
     {file = "pylint-django-2.4.4.tar.gz", hash = "sha256:f63f717169b0c2e4e19c28f1c32c28290647330184fcb7427805ae9b6994f3fc"},
@@ -1980,9 +1980,9 @@ typed-ast = [
     {file = "typed_ast-1.4.3.tar.gz", hash = "sha256:fb1bbeac803adea29cedd70781399c99138358c26d05fcbd23c13016b7f5ec65"},
 ]
 typing-extensions = [
-    {file = "typing_extensions-3.7.4.3-py2-none-any.whl", hash = "sha256:dafc7639cde7f1b6e1acc0f457842a83e722ccca8eef5270af2d74792619a89f"},
-    {file = "typing_extensions-3.7.4.3-py3-none-any.whl", hash = "sha256:7cb407020f00f7bfc3cb3e7881628838e69d8f3fcab2f64742a5e76b2f841918"},
-    {file = "typing_extensions-3.7.4.3.tar.gz", hash = "sha256:99d4073b617d30288f569d3f13d2bd7548c3a7e4c8de87db09a9d29bb3a4a60c"},
+    {file = "typing_extensions-3.10.0.0-py2-none-any.whl", hash = "sha256:0ac0f89795dd19de6b97debb0c6af1c70987fd80a2d62d1958f7e56fcc31b497"},
+    {file = "typing_extensions-3.10.0.0-py3-none-any.whl", hash = "sha256:779383f6086d90c99ae41cf0ff39aac8a7937a9283ce0a414e5dd782f4c94a84"},
+    {file = "typing_extensions-3.10.0.0.tar.gz", hash = "sha256:50b6f157849174217d0656f99dc82fe932884fb250826c18350e159ec6cdf342"},
 ]
 uritemplate = [
     {file = "uritemplate-3.0.1-py2.py3-none-any.whl", hash = "sha256:07620c3f3f8eed1f12600845892b0e036a2420acf513c53f7de0abd911a5894f"},
