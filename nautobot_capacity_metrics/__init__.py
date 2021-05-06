@@ -1,6 +1,6 @@
 """Plugin declaration for nautobot_capacity_metrics."""
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 from nautobot.extras.plugins import PluginConfig
 
@@ -39,12 +39,12 @@ class MetricsExtConfig(PluginConfig):
     default_settings = {
         "app_metrics": {
             "models": {
-                "dcim": {
+                "nautobot.dcim": {
                     "Site": True,
                     "Rack": True,
                     "Device": True,
                 },
-                "ipam": {"IPAddress": True, "Prefix": True},
+                "nautobot.ipam": {"IPAddress": True, "Prefix": True},
             },
             "jobs": True,
             "queues": True,
