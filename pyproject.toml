@@ -18,7 +18,8 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-nautobot = "*"
+# Used for local development
+nautobot = { version = "*", optional = true }
 
 [tool.poetry.dev-dependencies]
 black = "*"
