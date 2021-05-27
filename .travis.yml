@@ -21,6 +21,7 @@ services:
 # --------------------------------------------------------------------------
 before_script:
   - "pip install invoke toml docker-compose"
+  - "cp development/creds.example.env development/creds.env"
 script:
   - "INVOKE_NAUTOBOT_CAPACITY_METRICS_PYTHON_VER=$TRAVIS_PYTHON_VERSION invoke build --no-cache"
   - "INVOKE_NAUTOBOT_CAPACITY_METRICS_PYTHON_VER=$TRAVIS_PYTHON_VERSION invoke unittest"
@@ -29,10 +30,11 @@ jobs:
   include:
     - stage: "lint"
       before_script:
-        - "pip install invoke toml"
+        - "pip install invoke toml docker-compose"
+        - "cp development/creds.example.env development/creds.env"
         - "invoke build"
       script:
-        - "invoke tests"
+        - "invoke tests --lintonly"
 
     - stage: "deploy-github"
       before_script:
