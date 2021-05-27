@@ -20,17 +20,19 @@ services:
 # Tests
 # --------------------------------------------------------------------------
 before_script:
-  - "pip install invoke toml docker-compose poetry"
+  - "pip install invoke toml docker-compose"
 script:
-  - "invoke build --nocache --python-ver $TRAVIS_PYTHON_VERSION"
-  - "invoke unittest"
+  - "INVOKE_NAUTOBOT_CAPACITY_METRICS_PYTHON_VER=$TRAVIS_PYTHON_VERSION invoke build --no-cache"
+  - "INVOKE_NAUTOBOT_CAPACITY_METRICS_PYTHON_VER=$TRAVIS_PYTHON_VERSION invoke unittest"
 
 jobs:
   include:
     - stage: "lint"
       before_script:
-        - "pip install invoke toml docker-compose"
-        - "invoke build --nocache"
+        - "pip install invoke toml poetry"
+        - "poetry install"
+      env:
+        - "INVOKE_NAUTOBOT_CAPACITY_METRICS_LOCAL=True"
       script:
         - "invoke black"
         - "invoke bandit"
