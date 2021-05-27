@@ -1,4 +1,4 @@
-"""Django views for Prometheus metric collection and reporting."""
+"""Django views for Prometheus metric collection and reporting."""  # pylint:  disable=too-few-public-methods
 import time
 import logging
 
