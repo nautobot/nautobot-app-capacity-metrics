@@ -30,8 +30,3 @@ COPY . /source
 RUN poetry install --no-interaction --no-ansi
 
 COPY development/nautobot_config.py ${NAUTOBOT_ROOT}/nautobot_config.py
-
-# Used if someone wants to override the entrypoint and provision a super user
-COPY development/docker-entrypoint.sh /tmp/nautobot/docker-entrypoint.sh
-
-ENTRYPOINT ["/tmp/nautobot/docker-entrypoint.sh"]
