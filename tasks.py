@@ -348,6 +348,13 @@ def unittest_coverage(context):
     run_command(context, command)
 
 
+@task
+def yamllint(context):
+    """Run yamllint to validate Yaml files formatting."""
+    command = "yamllint --strict ."
+    run_command(context, command)
+
+
 @task(
     help={
         "failfast": "fail as soon as a single test fails don't run the entire test suite",
@@ -362,6 +369,8 @@ def tests(context, failfast=False):
     # Sorted loosely from fastest to slowest
     print("Running black...")
     black(context)
+    print("Running yamllint...")
+    yamllint(context)
     print("Running flake8...")
     flake8(context)
     print("Running bandit...")
