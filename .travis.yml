@@ -29,17 +29,10 @@ jobs:
   include:
     - stage: "lint"
       before_script:
-        - "pip install invoke toml poetry"
-        - "poetry install --extras nautobot"
-      env:
-        - "INVOKE_NAUTOBOT_CAPACITY_METRICS_LOCAL=True"
+        - "pip install invoke toml"
+        - "invoke build"
       script:
-        - "invoke black"
-        - "invoke yamllint"
-        - "invoke flake8"
-        - "invoke bandit"
-        - "invoke pydocstyle"
-        - "invoke pylint"
+        - "invoke tests"
 
     - stage: "deploy-github"
       before_script:

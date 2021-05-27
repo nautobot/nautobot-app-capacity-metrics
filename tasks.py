@@ -358,9 +358,10 @@ def yamllint(context):
 @task(
     help={
         "failfast": "fail as soon as a single test fails don't run the entire test suite",
+        "lintonly": "only run the linters, skip unit tests",
     }
 )
-def tests(context, failfast=False):
+def tests(context, failfast=False, lintonly=False):
     """Run all tests for this plugin."""
     # If we are not running locally, start the docker containers so we don't have to for each test
     if not is_truthy(context.nautobot_capacity_metrics.local):
@@ -381,5 +382,6 @@ def tests(context, failfast=False):
     pylint(context)
     print("Running unit tests...")
     unittest(context, failfast=failfast)
-    print("All tests have passed!")
-    unittest_coverage(context)
+    if not lintonly:
+        print("All tests have passed!")
+        unittest_coverage(context)
