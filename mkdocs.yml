@@ -1,0 +1,25 @@
+---
+dev_addr: "127.0.0.1:8001"
+edit_uri: "edit/main/nautobot-plugin-capacity-metrics/docs"
+site_name: "Nautobot Capacity Metrics Documentation"
+site_url: "https://nautobot-plugin-capacity-metrics.readthedocs.io/"
+repo_url: "https://github.com/nautobot/nautobot-plugin-capacity-metrics"
+python:
+  install:
+    - requirements: "docs/requirements.txt"
+theme:
+  name: "readthedocs"
+  navigation_depth: 4
+  hljs_languages:
+    - "django"
+    - "yaml"
+extra_css:
+  - "extra.css"
+markdown_extensions:
+  - "admonition"
+  - markdown_include.include:
+      headingOffset: 1
+  - toc:
+      permalink: true
+nav:
+  - Introduction: "index.md"

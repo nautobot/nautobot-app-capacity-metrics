@@ -20,23 +20,21 @@ services:
 # Tests
 # --------------------------------------------------------------------------
 before_script:
-  - "pip install invoke toml docker-compose poetry"
+  - "pip install invoke toml docker-compose"
+  - "cp development/creds.example.env development/creds.env"
 script:
-  - "invoke build --nocache --python-ver $TRAVIS_PYTHON_VERSION"
-  - "invoke unittest"
+  - "INVOKE_NAUTOBOT_CAPACITY_METRICS_PYTHON_VER=$TRAVIS_PYTHON_VERSION invoke build --no-cache"
+  - "INVOKE_NAUTOBOT_CAPACITY_METRICS_PYTHON_VER=$TRAVIS_PYTHON_VERSION invoke unittest"
 
 jobs:
   include:
     - stage: "lint"
       before_script:
         - "pip install invoke toml docker-compose"
-        - "invoke build --nocache"
+        - "cp development/creds.example.env development/creds.env"
+        - "invoke build"
       script:
-        - "invoke black"
-        - "invoke bandit"
-        - "invoke pydocstyle"
-        - "invoke yamllint"
-        - "invoke pylint"
+        - "invoke tests --lintonly"
 
     - stage: "deploy-github"
       before_script:
