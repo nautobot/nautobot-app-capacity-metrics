@@ -34,9 +34,6 @@ markdown-include = "*"
 mkdocs = "*"
 yamllint = "*"
 
-[tool.poetry.extras]
-nautobot = ["nautobot"]
-
 [tool.black]
 line-length = 120
 target-version = ['py37']

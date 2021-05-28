@@ -1418,13 +1418,10 @@ python-versions = ">=3.6"
 docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
-[extras]
-nautobot = ["nautobot"]
-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6"
-content-hash = "902f66bed7f2d95776bfa17dfb53f835f38f65d16ee68c5188e6d790e769e9f6"
+content-hash = "b4ab023c8e1a86ab048668fd8a63e03b15a19bc59278091a5e849c3610e4af36"
 
 [metadata.files]
 aniso8601 = [
