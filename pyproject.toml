@@ -18,8 +18,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-# Used for local development
-nautobot = { version = "*", optional = true }
+nautobot = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "*"
@@ -34,9 +33,6 @@ pylint-django = "*"
 markdown-include = "*"
 mkdocs = "*"
 yamllint = "*"
-
-[tool.poetry.extras]
-nautobot = ["nautobot"]
 
 [tool.black]
 line-length = 120
