@@ -13,6 +13,10 @@ python:
   - 3.7
   - 3.8
 
+env:
+  - "INVOKE_NAUTOBOT_CAPACITY_METRICS_NAUTOBOT_VER=1.0.1"
+  - "INVOKE_NAUTOBOT_CAPACITY_METRICS_NAUTOBOT_VER=1.0.2"
+
 services:
   - "docker"
 

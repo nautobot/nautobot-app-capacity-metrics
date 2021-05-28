@@ -18,8 +18,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-# Used for local development
-nautobot = { version = "*", optional = true }
+nautobot = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "*"
