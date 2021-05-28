@@ -24,7 +24,7 @@ services:
 # Tests
 # --------------------------------------------------------------------------
 before_script:
-  - "pip install invoke toml docker-compose"
+  - "pip install invoke toml docker-compose poetry"
   - "cp development/creds.example.env development/creds.env"
   - "rm -f poetry.lock"
   - "poetry lock"
