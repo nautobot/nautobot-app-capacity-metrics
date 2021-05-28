@@ -26,6 +26,7 @@ services:
 before_script:
   - "pip install invoke toml docker-compose"
   - "cp development/creds.example.env development/creds.env"
+  - "rm -f poetry.lock"
 script:
   - "INVOKE_NAUTOBOT_CAPACITY_METRICS_PYTHON_VER=$TRAVIS_PYTHON_VERSION invoke build --no-cache"
   - "INVOKE_NAUTOBOT_CAPACITY_METRICS_PYTHON_VER=$TRAVIS_PYTHON_VERSION invoke unittest"
