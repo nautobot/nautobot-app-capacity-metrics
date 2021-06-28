@@ -22,7 +22,7 @@ Currently the plugin exposes these simple metrics by default:
 
 # Queue System Metrics Endpoint
 
-In addition to the default Nautobot system metrics which are exposed at `/metrics` which are largely centered around the Django system on which Nautobot is based this plugin provides some additional system metrics around the queuing system Nuatobot uses to communicate with the Nautobot worker services.  This endpoint is provided separately via `/api/plugins/capacity-metrics/rq-metrics`, this endpoint can be scraped more frequently than the other application metrics endpoint.
+In addition to the default Nautobot system metrics which are exposed at `/metrics` which are largely centered around the Django system on which Nautobot is based this plugin provides some additional system metrics around the queuing system Nautobot uses to communicate with the Nautobot worker services.  This endpoint is provided separately via `/api/plugins/capacity-metrics/rq-metrics`, this endpoint can be scraped more frequently than the other application metrics endpoint.
 ## Add your own metrics
 
 This plugin supports some options to generate and publish your own application metrics behind the same endpoint.
