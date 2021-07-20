@@ -158,7 +158,7 @@ The plugin is available as a Python package in pypi and can be installed with pi
 pip install nautobot-capacity-metrics
 ```
 
-> The plugin is compatible with Nautobot 1.0.0 and higher (or Netbox 2.8.1 and higher)
+> The plugin is compatible with Nautobot 1.0.0 and higher
 
 To ensure Application Metrics Plugin is automatically re-installed during future upgrades, create a file named `local_requirements.txt` (if not already existing) in the Nautobot root directory (alongside `requirements.txt`) and list the `nautobot-capacity-metrics` package:
 
