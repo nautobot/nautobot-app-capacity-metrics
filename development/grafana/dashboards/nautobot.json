@@ -18,8 +18,8 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 1,
-    "iteration": 1627062903970,
+    "id": 61,
+    "iteration": 1627067282492,
     "links": [],
     "panels": [
       {
@@ -62,7 +62,7 @@
           "text": {},
           "textMode": "auto"
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
         "targets": [
           {
             "exemplar": true,
@@ -118,7 +118,7 @@
           "text": {},
           "textMode": "auto"
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
         "targets": [
           {
             "exemplar": true,
@@ -174,7 +174,7 @@
           "text": {},
           "textMode": "auto"
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
         "targets": [
           {
             "exemplar": true,
@@ -230,7 +230,7 @@
           "text": {},
           "textMode": "auto"
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
         "targets": [
           {
             "exemplar": true,
@@ -286,7 +286,7 @@
           "text": {},
           "textMode": "auto"
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
         "targets": [
           {
             "exemplar": true,
@@ -343,7 +343,7 @@
           "text": {},
           "textMode": "value"
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
         "repeat": null,
         "targets": [
           {
@@ -410,7 +410,7 @@
           "text": {},
           "textMode": "auto"
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
         "targets": [
           {
             "exemplar": true,
@@ -471,7 +471,7 @@
           "text": {},
           "textMode": "auto"
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
         "targets": [
           {
             "exemplar": true,
@@ -606,7 +606,7 @@
           "showUnfilled": true,
           "text": {}
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
         "targets": [
           {
             "exemplar": true,
@@ -640,6 +640,7 @@
               "fillOpacity": 70,
               "gradientMode": "opacity",
               "hideFrom": {
+                "graph": false,
                 "legend": false,
                 "tooltip": false,
                 "viz": false
@@ -651,14 +652,7 @@
                 "type": "linear"
               },
               "showPoints": "never",
-              "spanNulls": true,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
+              "spanNulls": true
             },
             "mappings": [],
             "thresholds": {
@@ -772,6 +766,9 @@
           },
           "tooltip": {
             "mode": "multi"
+          },
+          "tooltipOptions": {
+            "mode": "single"
           }
         },
         "pluginVersion": "8.0.5",
@@ -804,6 +801,13 @@
         "id": 21,
         "panels": [],
         "repeat": "instance",
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.106.4:5555",
+            "value": "10.23.106.4:5555"
+          }
+        },
         "title": "Worker DB Queries",
         "type": "row"
       },
@@ -861,7 +865,14 @@
           "showThresholdMarkers": true,
           "text": {}
         },
-        "pluginVersion": "8.0.5",
+        "pluginVersion": "7.5.7",
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.106.4:5555",
+            "value": "10.23.106.4:5555"
+          }
+        },
         "targets": [
           {
             "exemplar": true,
@@ -892,6 +903,10 @@
         },
         "dataFormat": "tsbuckets",
         "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
         "gridPos": {
           "h": 11,
           "w": 21,
@@ -908,6 +923,749 @@
         },
         "pluginVersion": "8.0.5",
         "reverseYBuckets": false,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.106.4:5555",
+            "value": "10.23.106.4:5555"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (le) (django_db_query_duration_seconds_bucket{namespace=~\"$namespace\", instance=~\"$instance\"})",
+            "format": "heatmap",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{le}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "$instance Database Query Duration",
+        "tooltip": {
+          "show": true,
+          "showHistogram": true
+        },
+        "transparent": true,
+        "type": "heatmap",
+        "xAxis": {
+          "show": true
+        },
+        "xBucketNumber": null,
+        "xBucketSize": null,
+        "yAxis": {
+          "decimals": null,
+          "format": "s",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true,
+          "splitFactor": null
+        },
+        "yBucketBound": "auto",
+        "yBucketNumber": null,
+        "yBucketSize": null
+      },
+      {
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 33
+        },
+        "id": 24,
+        "panels": [],
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 21,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.104.205:8080",
+            "value": "10.23.104.205:8080"
+          }
+        },
+        "title": "Worker DB Queries",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.2
+                },
+                {
+                  "color": "yellow",
+                  "value": 0.4
+                },
+                {
+                  "color": "green",
+                  "value": 0.6
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 3,
+          "x": 0,
+          "y": 34
+        },
+        "id": 25,
+        "options": {
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "7.5.7",
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 19,
+        "repeatedByRow": true,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.104.205:8080",
+            "value": "10.23.104.205:8080"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(cacheops_cache_hit_total{namespace=~\"$namespace\", instance=~\"$instance\"}/(cacheops_cache_hit_total{namespace=~\"$namespace\", instance=~\"$instance\"}+cacheops_cache_miss_total{namespace=~\"$namespace\", instance=~\"$instance\"}))",
+            "interval": "",
+            "legendFormat": "Cache Hits",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "$instance Cache Hits",
+        "transparent": true,
+        "type": "gauge"
+      },
+      {
+        "cards": {
+          "cardPadding": null,
+          "cardRound": null
+        },
+        "color": {
+          "cardColor": "#FF9830",
+          "colorScale": "sqrt",
+          "colorScheme": "interpolateRdYlGn",
+          "exponent": 0.5,
+          "max": null,
+          "min": null,
+          "mode": "opacity"
+        },
+        "dataFormat": "tsbuckets",
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 21,
+          "x": 3,
+          "y": 34
+        },
+        "heatmap": {},
+        "hideZeroBuckets": false,
+        "highlightCards": true,
+        "id": 26,
+        "interval": "30s",
+        "legend": {
+          "show": true
+        },
+        "pluginVersion": "8.0.5",
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 23,
+        "repeatedByRow": true,
+        "reverseYBuckets": false,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.104.205:8080",
+            "value": "10.23.104.205:8080"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (le) (django_db_query_duration_seconds_bucket{namespace=~\"$namespace\", instance=~\"$instance\"})",
+            "format": "heatmap",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{le}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "$instance Database Query Duration",
+        "tooltip": {
+          "show": true,
+          "showHistogram": true
+        },
+        "transparent": true,
+        "type": "heatmap",
+        "xAxis": {
+          "show": true
+        },
+        "xBucketNumber": null,
+        "xBucketSize": null,
+        "yAxis": {
+          "decimals": null,
+          "format": "s",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true,
+          "splitFactor": null
+        },
+        "yBucketBound": "auto",
+        "yBucketNumber": null,
+        "yBucketSize": null
+      },
+      {
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 45
+        },
+        "id": 27,
+        "panels": [],
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 21,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.106.13:8080",
+            "value": "10.23.106.13:8080"
+          }
+        },
+        "title": "Worker DB Queries",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.2
+                },
+                {
+                  "color": "yellow",
+                  "value": 0.4
+                },
+                {
+                  "color": "green",
+                  "value": 0.6
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 3,
+          "x": 0,
+          "y": 46
+        },
+        "id": 28,
+        "options": {
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "7.5.7",
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 19,
+        "repeatedByRow": true,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.106.13:8080",
+            "value": "10.23.106.13:8080"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(cacheops_cache_hit_total{namespace=~\"$namespace\", instance=~\"$instance\"}/(cacheops_cache_hit_total{namespace=~\"$namespace\", instance=~\"$instance\"}+cacheops_cache_miss_total{namespace=~\"$namespace\", instance=~\"$instance\"}))",
+            "interval": "",
+            "legendFormat": "Cache Hits",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "$instance Cache Hits",
+        "transparent": true,
+        "type": "gauge"
+      },
+      {
+        "cards": {
+          "cardPadding": null,
+          "cardRound": null
+        },
+        "color": {
+          "cardColor": "#FF9830",
+          "colorScale": "sqrt",
+          "colorScheme": "interpolateRdYlGn",
+          "exponent": 0.5,
+          "max": null,
+          "min": null,
+          "mode": "opacity"
+        },
+        "dataFormat": "tsbuckets",
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 21,
+          "x": 3,
+          "y": 46
+        },
+        "heatmap": {},
+        "hideZeroBuckets": false,
+        "highlightCards": true,
+        "id": 29,
+        "interval": "30s",
+        "legend": {
+          "show": true
+        },
+        "pluginVersion": "8.0.5",
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 23,
+        "repeatedByRow": true,
+        "reverseYBuckets": false,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.106.13:8080",
+            "value": "10.23.106.13:8080"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (le) (django_db_query_duration_seconds_bucket{namespace=~\"$namespace\", instance=~\"$instance\"})",
+            "format": "heatmap",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{le}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "$instance Database Query Duration",
+        "tooltip": {
+          "show": true,
+          "showHistogram": true
+        },
+        "transparent": true,
+        "type": "heatmap",
+        "xAxis": {
+          "show": true
+        },
+        "xBucketNumber": null,
+        "xBucketSize": null,
+        "yAxis": {
+          "decimals": null,
+          "format": "s",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true,
+          "splitFactor": null
+        },
+        "yBucketBound": "auto",
+        "yBucketNumber": null,
+        "yBucketSize": null
+      },
+      {
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 57
+        },
+        "id": 30,
+        "panels": [],
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 21,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.104.238:8001",
+            "value": "10.23.104.238:8001"
+          }
+        },
+        "title": "Worker DB Queries",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.2
+                },
+                {
+                  "color": "yellow",
+                  "value": 0.4
+                },
+                {
+                  "color": "green",
+                  "value": 0.6
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 3,
+          "x": 0,
+          "y": 58
+        },
+        "id": 31,
+        "options": {
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "7.5.7",
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 19,
+        "repeatedByRow": true,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.104.238:8001",
+            "value": "10.23.104.238:8001"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(cacheops_cache_hit_total{namespace=~\"$namespace\", instance=~\"$instance\"}/(cacheops_cache_hit_total{namespace=~\"$namespace\", instance=~\"$instance\"}+cacheops_cache_miss_total{namespace=~\"$namespace\", instance=~\"$instance\"}))",
+            "interval": "",
+            "legendFormat": "Cache Hits",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "$instance Cache Hits",
+        "transparent": true,
+        "type": "gauge"
+      },
+      {
+        "cards": {
+          "cardPadding": null,
+          "cardRound": null
+        },
+        "color": {
+          "cardColor": "#FF9830",
+          "colorScale": "sqrt",
+          "colorScheme": "interpolateRdYlGn",
+          "exponent": 0.5,
+          "max": null,
+          "min": null,
+          "mode": "opacity"
+        },
+        "dataFormat": "tsbuckets",
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 21,
+          "x": 3,
+          "y": 58
+        },
+        "heatmap": {},
+        "hideZeroBuckets": false,
+        "highlightCards": true,
+        "id": 32,
+        "interval": "30s",
+        "legend": {
+          "show": true
+        },
+        "pluginVersion": "8.0.5",
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 23,
+        "repeatedByRow": true,
+        "reverseYBuckets": false,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.104.238:8001",
+            "value": "10.23.104.238:8001"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (le) (django_db_query_duration_seconds_bucket{namespace=~\"$namespace\", instance=~\"$instance\"})",
+            "format": "heatmap",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{le}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "$instance Database Query Duration",
+        "tooltip": {
+          "show": true,
+          "showHistogram": true
+        },
+        "transparent": true,
+        "type": "heatmap",
+        "xAxis": {
+          "show": true
+        },
+        "xBucketNumber": null,
+        "xBucketSize": null,
+        "yAxis": {
+          "decimals": null,
+          "format": "s",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true,
+          "splitFactor": null
+        },
+        "yBucketBound": "auto",
+        "yBucketNumber": null,
+        "yBucketSize": null
+      },
+      {
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 69
+        },
+        "id": 33,
+        "panels": [],
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 21,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.106.55:8001",
+            "value": "10.23.106.55:8001"
+          }
+        },
+        "title": "Worker DB Queries",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.2
+                },
+                {
+                  "color": "yellow",
+                  "value": 0.4
+                },
+                {
+                  "color": "green",
+                  "value": 0.6
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 3,
+          "x": 0,
+          "y": 70
+        },
+        "id": 34,
+        "options": {
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "7.5.7",
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 19,
+        "repeatedByRow": true,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.106.55:8001",
+            "value": "10.23.106.55:8001"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(cacheops_cache_hit_total{namespace=~\"$namespace\", instance=~\"$instance\"}/(cacheops_cache_hit_total{namespace=~\"$namespace\", instance=~\"$instance\"}+cacheops_cache_miss_total{namespace=~\"$namespace\", instance=~\"$instance\"}))",
+            "interval": "",
+            "legendFormat": "Cache Hits",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "$instance Cache Hits",
+        "transparent": true,
+        "type": "gauge"
+      },
+      {
+        "cards": {
+          "cardPadding": null,
+          "cardRound": null
+        },
+        "color": {
+          "cardColor": "#FF9830",
+          "colorScale": "sqrt",
+          "colorScheme": "interpolateRdYlGn",
+          "exponent": 0.5,
+          "max": null,
+          "min": null,
+          "mode": "opacity"
+        },
+        "dataFormat": "tsbuckets",
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {},
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 11,
+          "w": 21,
+          "x": 3,
+          "y": 70
+        },
+        "heatmap": {},
+        "hideZeroBuckets": false,
+        "highlightCards": true,
+        "id": 35,
+        "interval": "30s",
+        "legend": {
+          "show": true
+        },
+        "pluginVersion": "8.0.5",
+        "repeatIteration": 1627067282492,
+        "repeatPanelId": 23,
+        "repeatedByRow": true,
+        "reverseYBuckets": false,
+        "scopedVars": {
+          "instance": {
+            "selected": false,
+            "text": "10.23.106.55:8001",
+            "value": "10.23.106.55:8001"
+          }
+        },
         "targets": [
           {
             "exemplar": true,
@@ -947,7 +1705,7 @@
       }
     ],
     "refresh": "10s",
-    "schemaVersion": 30,
+    "schemaVersion": 27,
     "style": "dark",
     "tags": [
       "nautobot",
@@ -958,8 +1716,8 @@
         {
           "current": {
             "selected": false,
-            "text": "Prometheus",
-            "value": "Prometheus"
+            "text": "prometheus",
+            "value": "prometheus"
           },
           "description": null,
           "error": null,
@@ -978,10 +1736,9 @@
         {
           "allValue": null,
           "current": {
-            "isNone": true,
             "selected": false,
-            "text": "None",
-            "value": ""
+            "text": "nautobot-develop",
+            "value": "nautobot-develop"
           },
           "datasource": "${datasource}",
           "definition": "label_values(nautobot_app_metrics_processing_ms, namespace)",
@@ -1001,18 +1758,18 @@
           "regex": "",
           "skipUrlSync": false,
           "sort": 0,
-          "type": "query"
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
         },
         {
           "allValue": null,
           "current": {
-            "selected": true,
-            "text": [
-              "172.22.0.8:8080"
-            ],
-            "value": [
-              "172.22.0.8:8080"
-            ]
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
           },
           "datasource": "${datasource}",
           "definition": "label_values(django_db_new_connections_total{namespace=~\"$namespace\"}, instance)",
@@ -1032,7 +1789,11 @@
           "regex": "",
           "skipUrlSync": false,
           "sort": 0,
-          "type": "query"
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
         }
       ]
     },
@@ -1057,5 +1818,5 @@
     "timezone": "",
     "title": "Nautobot Application Metrics",
     "uid": "DfgUEURnk",
-    "version": 8
+    "version": 1
   }
