@@ -1,0 +1,3910 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 5,
+    "iteration": 1627063697849,
+    "links": [],
+    "panels": [
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 32,
+        "panels": [],
+        "title": "Overview",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 1
+                },
+                {
+                  "color": "green",
+                  "value": 2
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 1
+        },
+        "id": 12,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "count(up{job=~\"$job\", namespace=~\"$namespace\"})",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Nautobot Instances",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "blue",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 3,
+          "x": 4,
+          "y": 1
+        },
+        "id": 18,
+        "interval": null,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (instance) (irate(django_http_requests_total_by_method_total{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))*60",
+            "interval": "",
+            "legendFormat": "{{ instance }} Requests",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "title": "Requests per Minute",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 3,
+          "x": 7,
+          "y": 1
+        },
+        "id": 27,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "histogram_quantile(.95, django_http_requests_latency_including_middlewares_seconds_bucket{job=\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"})",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "P95 Average Response Time",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 3,
+          "x": 10,
+          "y": 1
+        },
+        "id": 45,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "histogram_quantile(.95, django_db_query_duration_seconds_bucket{job=\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"})",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "P95 Average DB Query Time",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.2
+                },
+                {
+                  "color": "yellow",
+                  "value": 0.4
+                },
+                {
+                  "color": "green",
+                  "value": 0.6
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 3,
+          "x": 13,
+          "y": 1
+        },
+        "id": 30,
+        "options": {
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(cacheops_cache_hit_total{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}/(cacheops_cache_hit_total{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}+cacheops_cache_miss_total{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}))",
+            "interval": "",
+            "legendFormat": "Cache Hits",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Cache Hits",
+        "transparent": true,
+        "type": "gauge"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 0,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 0,
+          "y": 5
+        },
+        "id": 22,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "sum"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (instance) (increase(django_http_responses_total_by_status_total{job=~\"$job\", status=~\"2..\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__range]))",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{instance}} Success 2xx",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Success (2xx)",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 0,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 3,
+          "x": 4,
+          "y": 5
+        },
+        "id": 24,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "sum"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (instance) (increase(django_http_responses_total_by_status_total{job=~\"$job\", status=~\"3..\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__range]))",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{instance}} Redirects 3xx",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Redirects (3xx)",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 0,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "yellow",
+                  "value": 1
+                },
+                {
+                  "color": "red",
+                  "value": 10
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 3,
+          "x": 7,
+          "y": 5
+        },
+        "id": 20,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (instance) (increase(django_http_responses_total_by_status_total{job=~\"$job\", status=~\"5..\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__range]))",
+            "interval": "",
+            "legendFormat": "{{instance}} 5xx Errors",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Server Errors (5xx)",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 0,
+            "mappings": [],
+            "noValue": "0",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 1
+                },
+                {
+                  "color": "red",
+                  "value": 10
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 3,
+          "x": 10,
+          "y": 5
+        },
+        "id": 25,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "sum"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (instance) (increase(django_http_responses_total_by_status_total{job=~\"$job\", status=~\"4..\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__range]))",
+            "interval": "",
+            "legendFormat": "{{instance}} Errors 4xx",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Error (4xx)",
+        "transparent": true,
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 9
+        },
+        "id": 34,
+        "panels": [],
+        "title": "Requests",
+        "type": "row"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "decimals": 0,
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-blue",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:circuit_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Circuits"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:circuittype_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Circuit Types"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:powerpanel_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Power Panels"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:region_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Regions"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "plugins-api:nautobot_capacity_metrics-api:nautobot_capacity_metrics_app_view"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "App Metrics"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "plugins-api:nautobot_capacity_metrics-api:nautobot_capacity_metrics_rq_view"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "RQ Metrics"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:site_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Sites"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras-api:status-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Statuses"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "home"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Home"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:objectchange_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Change Log"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:ipaddress"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "IP Address"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:ipaddress_add"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Add IP Address"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:ipaddress_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "IP Addresses"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "prometheus-django-metrics"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Django Metrics"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "virtualization:virtualmachine_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Virtual Machines"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:gitrepository_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Git Repositories"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:provider_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Circuit Providers"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "<unnamed view>"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Unknown"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "api_docs"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Swagger"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:circuit"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Swagger"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:circuittermination_trace"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Circuit Termination Trace"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:consoleserverport-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Console Server Ports API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:device-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Devices API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:devicetype-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Devices Types API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:interface-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interfaces API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:manufacturer-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Manufacturers API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:platform-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Platforms API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:rack-elevation"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Elevations API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:rack-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Racks API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:site-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Sites API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:cable"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Cable"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:cable_import"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Cable Import"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:cable_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Cables"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:consoleport_connect"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Console Port Connection"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:consoleport_edit"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Console Port Edit"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_changelog"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Changelog"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_configcontext"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Config Context"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_consoleports"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Console Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_edit"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Edit"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_interfaces"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Interfaces"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Devices"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_powerports"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Power Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:devicetype"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Type"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:devicetype_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Types"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:frontport_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Front Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:interface"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interface"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:interface_connections_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interface Connections"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:interface_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interfaces"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:interface_trace"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interface Trace"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:manufacturer_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Manufacturers"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:powerfeed_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Power Feeds"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:powerport_connect"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Power Port Connection"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:powerport_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Power Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rack"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Racks"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rack_elevation_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Elevations"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rack_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Racks"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rackgroup_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Groups"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rackreservation_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Reservations"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rackrole_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Roles"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rearport_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rear Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:region"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Region"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:site"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Site"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:site_add"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Site Add"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:jobresult-detail"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job Result"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:computedfield"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Computed Field"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:computedfield_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Computed Fields"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:configcontext_add"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Config Context Add"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:configcontext_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Config Contexts"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:configcontextschema_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Config Context Schemas"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:gitrepository"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Git Repositories"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:gitrepository_changelog"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Git Repository Change Log"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:gitrepository_result"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Git Repository Result"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:graphqlquery"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL Query"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:graphqlquery_add"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL Query Add"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:graphqlquery_edit"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL Query Edit"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:graphqlquery_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL Queries"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:job"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:job_jobresult"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job Result"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:job_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Jobs"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:relationship_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Relationships"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:status_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Statuses"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:tag_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Tags"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:webhook_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Webhooks"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "graphql"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL UI"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "health_check:health_check_home"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Healthcheck"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:prefix"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Prefix"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:prefix_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Prefixes"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:prefix_prefixes"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Child Prefixes"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:rir_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "RIRs"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:role"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Prefix/VLAN Role"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:role_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Prefix/VLAN Roles"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:service_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Services"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:vlan"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "VLAN"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:vlan_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "VLANs"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "login"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Login"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "media_failure"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Media Failure"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "tenancy:tenant"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Tenant"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "tenancy:tenant_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Tenants"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "virtualization-api:clustertype-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Cluster Types API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "virtualization:cluster_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Clusters"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "virtualization:vminterface_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "VM Interfaces"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 16,
+          "w": 12,
+          "x": 0,
+          "y": 10
+        },
+        "id": 40,
+        "options": {
+          "displayMode": "basic",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "text": {}
+        },
+        "pluginVersion": "8.0.5",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "topk(10,sum by (view) (increase(django_http_requests_latency_seconds_by_view_method_count{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__range])))",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{view}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Top 10 Views",
+        "transparent": true,
+        "type": "bargauge"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 10
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(django_http_requests_latency_including_middlewares_seconds_sum{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))/sum(rate(django_http_requests_latency_including_middlewares_seconds_count{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))",
+            "interval": "",
+            "legendFormat": "Latency",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Request Latency ",
+        "transparent": true,
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 72,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:circuit_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Circuits"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:circuittype_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Circuit Types"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:powerpanel_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Power Panels"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:region_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Regions"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "plugins-api:nautobot_capacity_metrics-api:nautobot_capacity_metrics_app_view"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "App Metrics"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "plugins-api:nautobot_capacity_metrics-api:nautobot_capacity_metrics_rq_view"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "RQ Metrics"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:site_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Sites"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras-api:status-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Statuses"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "home"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Home"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:objectchange_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Change Log"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:ipaddress"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "IP Address"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:ipaddress_add"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Add IP Address"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:ipaddress_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "IP Addresses"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "prometheus-django-metrics"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Django Metrics"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "virtualization:virtualmachine_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Virtual Machines"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:gitrepository_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Git Repositories"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:provider_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Circuit Providers"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "<unnamed view>"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Unknown"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "api_docs"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Swagger"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:circuit"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Swagger"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "circuits:circuittermination_trace"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Circuit Termination Trace"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:consoleserverport-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Console Server Ports API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:device-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Devices API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:devicetype-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Devices Types API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:interface-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interfaces API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:manufacturer-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Manufacturers API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:platform-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Platforms API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:rack-elevation"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Elevations API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:rack-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Racks API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim-api:site-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Sites API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:cable"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Cable"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:cable_import"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Cable Import"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:cable_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Cables"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:consoleport_connect"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Console Port Connection"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:consoleport_edit"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Console Port Edit"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_changelog"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Changelog"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_configcontext"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Config Context"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_consoleports"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Console Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_edit"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Edit"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_interfaces"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Interfaces"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Devices"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:device_powerports"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Power Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:devicetype"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Type"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:devicetype_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Device Types"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:frontport_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Front Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:interface"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interface"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:interface_connections_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interface Connections"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:interface_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interfaces"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:interface_trace"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Interface Trace"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:manufacturer_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Manufacturers"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:powerfeed_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Power Feeds"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:powerport_connect"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Power Port Connection"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:powerport_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Power Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rack"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Racks"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rack_elevation_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Elevations"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rack_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Racks"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rackgroup_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Groups"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rackreservation_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Reservations"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rackrole_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rack Roles"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:rearport_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Rear Ports"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:region"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Region"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:site"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Site"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "dcim:site_add"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Site Add"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:jobresult-detail"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job Result"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:computedfield"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Computed Field"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:computedfield_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Computed Fields"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:configcontext_add"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Config Context Add"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:configcontext_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Config Contexts"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:configcontextschema_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Config Context Schemas"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:gitrepository"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Git Repositories"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:gitrepository_changelog"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Git Repository Change Log"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:gitrepository_result"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Git Repository Result"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:graphqlquery"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL Query"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:graphqlquery_add"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL Query Add"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:graphqlquery_edit"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL Query Edit"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:graphqlquery_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL Queries"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:job"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:job_jobresult"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Job Result"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:job_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Jobs"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:relationship_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Relationships"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:status_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Statuses"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:tag_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Tags"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "extras:webhook_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Webhooks"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "graphql"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "GraphQL UI"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "health_check:health_check_home"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Healthcheck"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:prefix"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Prefix"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:prefix_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Prefixes"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:prefix_prefixes"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Child Prefixes"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:rir_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "RIRs"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:role"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Prefix/VLAN Role"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:role_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Prefix/VLAN Roles"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:service_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Services"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:vlan"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "VLAN"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "ipam:vlan_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "VLANs"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "login"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Login"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "media_failure"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Media Failure"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "tenancy:tenant"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Tenant"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "tenancy:tenant_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Tenants"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "virtualization-api:clustertype-list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Cluster Types API"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "virtualization:cluster_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "Clusters"
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "virtualization:vminterface_list"
+              },
+              "properties": [
+                {
+                  "id": "displayName",
+                  "value": "VM Interfaces"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 18
+        },
+        "id": 8,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (view) (irate(django_http_requests_latency_seconds_by_view_method_sum{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))/sum by (view) (irate(django_http_requests_latency_seconds_by_view_method_count{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))",
+            "interval": "",
+            "legendFormat": "{{ view }}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Request Latency by View",
+        "transparent": true,
+        "type": "timeseries"
+      },
+      {
+        "datasource": "${datasource}",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 85,
+              "gradientMode": "opacity",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "reqps"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 26
+        },
+        "id": 10,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(irate(django_http_responses_total_by_status_total{job=~\"$job\", status=~\"5..\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))",
+            "interval": "",
+            "legendFormat": "Server Error",
+            "queryType": "randomWalk",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum(irate(django_http_responses_total_by_status_total{job=~\"$job\", status=~\"2..\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Success",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum(irate(django_http_responses_total_by_status_total{job=~\"$job\", status=~\"3..\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Redirect",
+            "refId": "C"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum(irate(django_http_responses_total_by_status_total{job=~\"$job\", status=~\"4..\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Client Error",
+            "refId": "D"
+          }
+        ],
+        "title": "Requests per Second",
+        "transparent": true,
+        "type": "timeseries"
+      },
+      {
+        "cards": {
+          "cardPadding": null,
+          "cardRound": null
+        },
+        "color": {
+          "cardColor": "#8F3BB8",
+          "colorScale": "sqrt",
+          "colorScheme": "interpolateTurbo",
+          "exponent": 0.5,
+          "mode": "opacity"
+        },
+        "dataFormat": "tsbuckets",
+        "datasource": "${datasource}",
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 26
+        },
+        "heatmap": {},
+        "hideZeroBuckets": true,
+        "highlightCards": true,
+        "id": 38,
+        "interval": "30s",
+        "legend": {
+          "show": true
+        },
+        "pluginVersion": "8.0.5",
+        "reverseYBuckets": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (le) (django_http_requests_body_total_bytes_bucket{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"})",
+            "format": "heatmap",
+            "interval": "",
+            "legendFormat": "{{le}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Request Size",
+        "tooltip": {
+          "show": true,
+          "showHistogram": true
+        },
+        "transparent": true,
+        "type": "heatmap",
+        "xAxis": {
+          "show": true
+        },
+        "xBucketNumber": null,
+        "xBucketSize": null,
+        "yAxis": {
+          "decimals": 2,
+          "format": "decbytes",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true,
+          "splitFactor": null
+        },
+        "yBucketBound": "auto",
+        "yBucketNumber": null,
+        "yBucketSize": null
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 34
+        },
+        "id": 36,
+        "panels": [],
+        "title": "Database",
+        "type": "row"
+      },
+      {
+        "cards": {
+          "cardPadding": null,
+          "cardRound": null
+        },
+        "color": {
+          "cardColor": "#FF9830",
+          "colorScale": "sqrt",
+          "colorScheme": "interpolateRdYlGn",
+          "exponent": 0.5,
+          "max": null,
+          "min": null,
+          "mode": "opacity"
+        },
+        "dataFormat": "tsbuckets",
+        "datasource": "${datasource}",
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 35
+        },
+        "heatmap": {},
+        "hideZeroBuckets": false,
+        "highlightCards": true,
+        "id": 16,
+        "interval": "30s",
+        "legend": {
+          "show": true
+        },
+        "pluginVersion": "8.0.5",
+        "reverseYBuckets": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (le) (django_db_query_duration_seconds_bucket{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"})",
+            "format": "heatmap",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{le}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Database Query Duration",
+        "tooltip": {
+          "show": true,
+          "showHistogram": true
+        },
+        "transparent": true,
+        "type": "heatmap",
+        "xAxis": {
+          "show": true
+        },
+        "xBucketNumber": null,
+        "xBucketSize": null,
+        "yAxis": {
+          "decimals": null,
+          "format": "s",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true,
+          "splitFactor": null
+        },
+        "yBucketBound": "auto",
+        "yBucketNumber": null,
+        "yBucketSize": null
+      },
+      {
+        "datasource": "${datasource}",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "graph": false,
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 35
+        },
+        "id": 6,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(irate(django_db_execute_total{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))",
+            "interval": "",
+            "legendFormat": "DB Queries",
+            "queryType": "randomWalk",
+            "refId": "A"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum(irate(cacheops_cache_hit_total{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Cache Hits",
+            "refId": "B"
+          },
+          {
+            "exemplar": true,
+            "expr": "sum(irate(cacheops_cache_miss_total{job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Cache Miss",
+            "refId": "C"
+          }
+        ],
+        "title": "Database Queries",
+        "transparent": true,
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 43
+        },
+        "id": 42,
+        "panels": [],
+        "repeat": null,
+        "title": "Latency by View",
+        "type": "row"
+      },
+      {
+        "cards": {
+          "cardPadding": null,
+          "cardRound": null
+        },
+        "color": {
+          "cardColor": "#b4ff00",
+          "colorScale": "sqrt",
+          "colorScheme": "interpolateBlues",
+          "exponent": 0.5,
+          "mode": "spectrum"
+        },
+        "dataFormat": "tsbuckets",
+        "datasource": "${datasource}",
+        "description": "",
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 44
+        },
+        "heatmap": {},
+        "hideZeroBuckets": true,
+        "highlightCards": true,
+        "id": 44,
+        "interval": "30s",
+        "legend": {
+          "show": true
+        },
+        "maxPerRow": 2,
+        "repeat": "view",
+        "repeatDirection": "h",
+        "reverseYBuckets": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum by (le,view) (django_http_requests_latency_seconds_by_view_method_bucket{view=\"$view\", job=~\"$job\", namespace=~\"$namespace\", instance=~\"$instance\"})",
+            "format": "heatmap",
+            "interval": "",
+            "legendFormat": "{{le}}",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "title": "Latency for View $view",
+        "tooltip": {
+          "show": true,
+          "showHistogram": true
+        },
+        "transparent": true,
+        "type": "heatmap",
+        "xAxis": {
+          "show": true
+        },
+        "xBucketNumber": null,
+        "xBucketSize": null,
+        "yAxis": {
+          "decimals": null,
+          "format": "s",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true,
+          "splitFactor": null
+        },
+        "yBucketBound": "auto",
+        "yBucketNumber": null,
+        "yBucketSize": null
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 30,
+    "style": "dark",
+    "tags": [
+      "nautobot"
+    ],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "Prometheus",
+            "value": "Prometheus"
+          },
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": "Data Source",
+          "multi": false,
+          "name": "datasource",
+          "options": [],
+          "query": "prometheus",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "allValue": null,
+          "current": {
+            "isNone": true,
+            "selected": false,
+            "text": "None",
+            "value": ""
+          },
+          "datasource": "${datasource}",
+          "definition": "label_values(django_db_new_connections_total, namespace)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": "Namespace",
+          "multi": false,
+          "name": "namespace",
+          "options": [],
+          "query": {
+            "query": "label_values(django_db_new_connections_total, namespace)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "nautobot_system",
+            "value": "nautobot_system"
+          },
+          "datasource": "${datasource}",
+          "definition": "label_values(django_db_new_connections_total{namespace=~\"$namespace\"}, job)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": "Job",
+          "multi": false,
+          "name": "job",
+          "options": [],
+          "query": {
+            "query": "label_values(django_db_new_connections_total{namespace=~\"$namespace\"}, job)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": true,
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "datasource": "${datasource}",
+          "definition": "label_values(django_db_new_connections_total{job=~\"$job\",namespace=~\"$namespace\"}, instance)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": true,
+          "label": "Instance",
+          "multi": true,
+          "name": "instance",
+          "options": [],
+          "query": {
+            "query": "label_values(django_db_new_connections_total{job=~\"$job\",namespace=~\"$namespace\"}, instance)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": "${datasource}",
+          "definition": "label_values(django_http_requests_latency_seconds_by_view_method_bucket{job=~\"$job\",namespace=~\"$namespace\", instance=~\"$instance\"}, view)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": true,
+          "label": "View",
+          "multi": true,
+          "name": "view",
+          "options": [],
+          "query": {
+            "query": "label_values(django_http_requests_latency_seconds_by_view_method_bucket{job=~\"$job\",namespace=~\"$namespace\", instance=~\"$instance\"}, view)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Nautobot Internals",
+    "uid": "aJo2jGZ7z",
+    "version": 35
+  }
