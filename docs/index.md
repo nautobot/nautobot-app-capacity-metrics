@@ -3,6 +3,7 @@
 A plugin for [Nautobot](https://github.com/nautobot/nautobot) to expose additional metrics information.
 
 The plugin is composed of multiple features that can be used independently:
+
 - Application Metrics Endpoint: prometheus endpoint at `/api/plugins/capacity-metrics/app-metrics`
 - RQ Queue Metrics Endpoint: prometheus endpoint at `/api/plugins/capacity-metrics/rq-metrics`
 - RQ Worker Metrics Command: Add prometheus endpoint on each RQ worker
@@ -10,15 +11,17 @@ The plugin is composed of multiple features that can be used independently:
 # Application Metrics Endpoint
 
 Nautobot already exposes some information via a Prometheus endpoint but the information currently available are mostly at the system level and not at the application level.
+
 - **SYSTEM Metrics** are very useful to instrument code, track ephemeral information and get a better visibility into what is happening. (Example of metrics: nbr of requests, requests per second, nbr of exceptions, response time, etc ...) The idea is that when multiple instances of Nautobot are running behind a load balancer each one will produce a different set of metrics and the monitoring system needs to collect these metrics from all running instances and aggregate them in a dashboard. Nautobot exposes some system metrics at `localhost/metrics` [Nautobot DOC](https://nautobot.readthedocs.io/en/stable/additional-features/prometheus-metrics/).
 - **APPLICATION Metrics** are at a higher level and represent information that is the same across all instances of an application running behind a load balancer. If I have 3 instances of Nautobot running, there is no point to ask each of them how many Device objects I have in the database, since they will always return the same information. In this case, the goal is to expose only 1 endpoint that can be served by any running instance.
 
 System metrics and application level metrics are complementary with each other
 
 Currently the plugin exposes these simple metrics by default:
+
 - RQ Queues stats
 - Jobs stats
-- Models count (configurable via configuration.py)
+- Models count (configurable via nautobot_config.py)
 
 # Queue System Metrics Endpoint
 
@@ -27,10 +30,10 @@ In addition to the default Nautobot system metrics which are exposed at `/metric
 
 This plugin supports some options to generate and publish your own application metrics behind the same endpoint.
 
-### Option 1 - Register function(s) via configuration.py.
+### Option 1 - Register function(s) via nautobot_config.py
 
-It's possible to create your own function to generate some metrics and register it to the plugin in the configuration.py.
-Here is an example where the custom function are centralized in a `metrics.py` file, located next to the main `configuration.py`.
+It's possible to create your own function to generate some metrics and register it to the plugin in the nautobot_config.py.
+Here is an example where the custom function are centralized in a `metrics.py` file, located next to the main `nautobot_config.py`.
 
 ```python
 # metrics.py
@@ -61,9 +64,11 @@ def metric_prefix_utilization():
 
     yield g
 ```
-The new function can be imported in the `configuration.py` file and registered with the plugin.
+
+The new function can be imported in the `nautobot_config.py` file and registered with the plugin.
+
 ```python
-# configuration.py
+# nautobot_config.py
 from nautobot.metrics import metric_prefix_utilization
 PLUGINS_CONFIG = {
     "nautobot_capacity_metrics": {
@@ -79,7 +84,7 @@ PLUGINS_CONFIG = {
 ### Option 2 - Registry for third party plugins
 
 Any plugin can include its own metrics to improve the visibility and/or the troubleshooting of the plugin itself.
-Third party plugins can register their own function(s) using the `ready()` function as part of their PluginConfig class.
+Third party plugins can register their own function(s) using the `ready()` function as part of their `PluginConfig` class.
 
 ```python
 # my_plugin/__init__.py
@@ -88,7 +93,7 @@ from nautobot.metrics import metric_circuit_bandwidth
 
 class MyPluginConfig(PluginConfig):
     name = "nautobot_myplugin"
-    verbose_name = "Demo Plugin "
+    verbose_name = "Demo Plugin"
     # [ ... ]
     def ready(self):
         super().ready()
@@ -99,18 +104,29 @@ class MyPluginConfig(PluginConfig):
 
 In the future it will be possible to add metrics by adding them in a predefined directory, similar to jobs.
 
-## Parameters
+## Plugin Configuration Parameters
 
 The behavior of the app_metrics feature can be controlled with the following list of settings (under `nautobot_capacity_metrics > app_metrics`):
-- `jobs` boolean (default True), publish stats about the jobs (success, warning, info, failure)
-- `queues` boolean (default True), publish stats about RQ Worker (nbr of worker, nbr and type of job in the different queues)
+
+- `jobs` boolean (default **True**), publish stats about the jobs (success, warning, info, failure) at `/api/plugins/capacity-metrics/app-metrics`
+- `queues` boolean (default **True**), publish stats about RQ Worker (nbr of worker, nbr and type of job in the different queues) at `/api/plugins/capacity-metrics/rq-metrics`
 - `models` nested dict, publish the count for a given object (Nbr Device, Nbr IP etc.. ). The first level must be the name of the module in lowercase (dcim, ipam etc..), the second level must be the name of the object (usually starting with a uppercase)
+
     ```python
-    {
-      "nautobot.dcim": {"Site": True, "Rack": True, "Device": True,},
-      "nautobot.ipam": {"IPAddress": True, "Prefix": True}
+    PLUGINS_CONFIG = {
+      "nautobot_capacity_metrics": {
+        "app_metrics": {
+          "models": {
+             "dcim": {"Site": True, "Rack": True, "Device": True},
+             "ipam": {"IPAddress": True, "Prefix": True},
+           },
+           "jobs": True,
+           "queues": True,
+         }
+       }
     }
     ```
+
 ## Usage
 
 Configure your Prometheus server to collect the application metrics at `/api/plugins/capacity-metrics/app-metrics/`
@@ -139,12 +155,14 @@ With this endpoint it become possible to instrument the tasks running asyncronou
 ## Usage
 
 The new command needs to be executed on the worker as a replacement for the default `rqworker`
-```
+
+```shell
 nautobot-server rqworker_metrics
 ```
 
 The port used to expose the prometheus endpoint can be configured for each worker in CLI.
-```
+
+```shell
 nautobot-server rqworker_metrics --prom-port 8002
 ```
 
@@ -154,6 +172,7 @@ To enable this mode the environment variable `prometheus_multiproc_dir` must be 
 # Installation
 
 The plugin is available as a Python package in pypi and can be installed with pip
+
 ```shell
 pip install nautobot-capacity-metrics
 ```
@@ -166,24 +185,14 @@ To ensure Application Metrics Plugin is automatically re-installed during future
 # echo nautobot-capacity-metrics >> local_requirements.txt
 ```
 
-Once installed, the plugin needs to be enabled in your `configuration.py`
-```python
-# In your configuration.py
-PLUGINS = ["nautobot_capacity_metrics"]
+Once installed, the plugin needs to be enabled in your `nautobot_config.py`
 
-# PLUGINS_CONFIG = {
-#   "nautobot_capacity_metrics": {
-#     "app_metrics": {
-#       "models": {
-#          "nautobot.dcim": {"Site": True, "Rack": True, "Device": True,},
-#          "nautobot.ipam": {"IPAddress": True, "Prefix": True},
-#        },
-#        "jobs": True,
-#        "queues": True,
-#      }
-#    }
-# }
+```python
+# In your nautobot_config.py
+PLUGINS = ["nautobot_capacity_metrics"]
 ```
+
+If you need to modify the plugin configuration away from defaults, please refer back to [Plugin Configuration Parameters](#plugin-configuration-parameters).
 
 ## Included Grafana Dashboard
 
@@ -198,6 +207,7 @@ Pull requests are welcomed and automatically built and tested against multiple v
 The project is packaged with a light development environment based on `docker-compose` to help with the local development of the project and to run the tests within TravisCI.
 
 The project is following Network to Code software development guideline and is leveraging:
+
 - Black, Pylint, Bandit and pydocstyle for Python linting and formatting.
 - Django unit test to ensure the plugin is working properly.
 
@@ -208,7 +218,8 @@ The project is coming with a CLI helper based on [invoke](http://www.pyinvoke.or
 Each command can be executed with `invoke <command>`. All commands support the arguments `--nautobot-ver` and `--python-ver` if you want to manually define the version of Python and Nautobot to use. Each command also has its own help `invoke <command> --help`
 
 #### Local dev environment
-```
+
+```no-highlight
   build            Build all docker images.
   debug            Start Nautobot and its dependencies in debug mode.
   destroy          Destroy all containers and volumes.
@@ -217,15 +228,17 @@ Each command can be executed with `invoke <command>`. All commands support the a
 ```
 
 #### Utility
-```
+
+```no-highlight
   cli              Launch a bash shell inside the running Nautobot container.
   create-user      Create a new user in django (default: admin), will prompt for password.
   makemigrations   Run Make Migration in Django.
   nbshell          Launch a nbshell session.
 ```
+
 #### Testing
 
-```
+```no-highlight
   tests            Run all tests for this plugin.
   pylint           Run pylint code analysis.
   pydocstyle       Run pydocstyle to validate docstring formatting adheres to NTC defined standards.
@@ -243,7 +256,7 @@ Sign up [here](http://slack.networktocode.com/)
 
 The following metrics will be provided via the `/api/plugins/capacity-metrics/app-metrics` endpoint:
 
-```
+```no-highlight
 # HELP nautobot_job_task_stats Per Job task statistics
 # TYPE nautobot_job_task_stats gauge
 nautobot_job_task_stats{module="local/users/CheckUser",name="total",status="success"} 1.0
@@ -275,7 +288,7 @@ nautobot_app_metrics_processing_ms 59.48257
 
 The following metrics will be provided via the `/api/plugins/capacity-metrics/rq-metrics` endpoint:
 
-```
+```no-highlight
 # HELP nautobot_queue_number_jobs Number of Job per RQ queue and status
 # TYPE nautobot_queue_number_jobs gauge
 nautobot_queue_number_jobs{name="check_releases",status="finished"} 0.0
