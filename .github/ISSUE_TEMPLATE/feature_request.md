@@ -1,12 +1,12 @@
 ---
 name: ✨ Feature Request
 about: Propose a new feature or enhancement
+
 ---
 
 ### Environment
-* Python version:  <!-- Example: 3.7.7 -->
-* Nautobot version:  <!-- Example: 2.8.4 -->
-* nautobot-plugin-capacity-metrics:  <!-- Example: 1.0.0 -->
+* Nautobot version:  <!-- Example: 1.0.0 -->
+* nautobot-capacity-metrics version:  <!-- Example: 1.0.1 -->
 
 <!--
     Describe in detail the new functionality you are proposing.

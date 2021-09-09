@@ -1,10 +1,11 @@
-"""Django views for Prometheus metric collection and reporting."""
+"""Django views for Prometheus metric collection and reporting."""  # pylint:  disable=too-few-public-methods
 import time
 import logging
 
 from django.conf import settings
 from django.http import HttpResponse
 
+from nautobot.extras.models import GitRepository
 import prometheus_client
 from prometheus_client.core import CollectorRegistry, GaugeMetricFamily
 
@@ -21,6 +22,10 @@ class AppMetricsCollector:
     def collect(self):  # pylint: disable=no-self-use
         """Collect metrics for all plugins and extras."""
         start = time.time()
+
+        if "gitrepositories" in PLUGIN_SETTINGS and PLUGIN_SETTINGS["gitrepositories"]:
+            for metric in metric_jobs(job_model=GitRepository):
+                yield metric
 
         if "jobs" in PLUGIN_SETTINGS and PLUGIN_SETTINGS["jobs"]:
             for metric in metric_jobs():
