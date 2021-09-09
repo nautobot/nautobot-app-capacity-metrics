@@ -62,22 +62,22 @@ def metric_jobs(job_model=Job):
     content_type = ContentType.objects.get_for_model(job_model)
 
     # Get the latest result for each job
-    job_results = (
-        JobResult.objects.filter(obj_type=content_type)
-        .order_by("name", "-completed")
-        .distinct("name")
-    )
+    job_results = JobResult.objects.filter(obj_type=content_type).order_by("name", "-completed").distinct("name")
 
     # Each Job can have multiple jobs (tasks) with individual statistics success, warning, failure,
     # info the stats gauge exposes these
     task_stats_gauge = GaugeMetricFamily(
-        f"nautobot_{content_type.model}_task_stats", f"Per {content_type.name} task statistics", labels=["module", "name", "status"]
+        f"nautobot_{content_type.model}_task_stats",
+        f"Per {content_type.name} task statistics",
+        labels=["module", "name", "status"],
     )
 
     # Each job has an overall status, one status per high level job not per task, which is one of pending,
     # running, completed, errored or failed as defined in the JobResultStatusChoices class
     execution_status_gauge = GaugeMetricFamily(
-        f"nautobot_{content_type.model}_execution_status", f"{content_type.name} completion status", labels=["module", "status"]
+        f"nautobot_{content_type.model}_execution_status",
+        f"{content_type.name} completion status",
+        labels=["module", "status"],
     )
 
     for job in job_results:
