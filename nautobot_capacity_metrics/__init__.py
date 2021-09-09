@@ -1,6 +1,6 @@
 """Plugin declaration for nautobot_capacity_metrics."""
 
-__version__ = "1.0.2"
+__version__ = "1.1.0"
 
 from nautobot.extras.plugins import PluginConfig
 
