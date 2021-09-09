@@ -251,6 +251,8 @@ PLUGINS = ["nautobot_capacity_metrics"]
 PLUGINS_CONFIG = {
     "nautobot_capacity_metrics": {
         "app_metrics": {
+            "gitrepositories": True,
+            "jobs": True,
             "models": {
                 "dcim": {
                     "Site": True,
@@ -260,9 +262,9 @@ PLUGINS_CONFIG = {
                     "Cable": True,
                 },
                 "ipam": {"IPAddress": True, "Prefix": True},
+                "extras": {"GitRepository": True},
             },
             "queues": True,
-            "jobs": True,
         }
     },
 }

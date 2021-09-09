@@ -9,6 +9,7 @@ from prometheus_client.core import Metric, GaugeMetricFamily
 
 from django_rq.utils import get_statistics
 from nautobot.extras.choices import JobResultStatusChoices
+from nautobot.extras.models import Job
 
 
 logger = logging.getLogger(__name__)
@@ -45,7 +46,7 @@ def metric_rq():
     yield worker
 
 
-def metric_jobs():
+def metric_jobs(job_model=Job):
     """Return Jobs results in Prometheus Metric format.
 
     Return:
@@ -55,25 +56,28 @@ def metric_jobs():
             nautobot_job_execution_status: with jobs module the name and overall status of the job
     """
     from django.contrib.contenttypes.models import ContentType  # pylint: disable=import-outside-toplevel
-    from nautobot.extras.models import Job, JobResult  # pylint: disable=import-outside-toplevel,no-name-in-module
+    from nautobot.extras.models import JobResult  # pylint: disable=import-outside-toplevel,no-name-in-module
+
+    # Get the content type for the model currently Jobs and GitRepositories
+    content_type = ContentType.objects.get_for_model(job_model)
 
     # Get the latest result for each job
-    job_results = (
-        JobResult.objects.filter(obj_type=ContentType.objects.get_for_model(Job))
-        .order_by("name", "-completed")
-        .distinct("name")
-    )
+    job_results = JobResult.objects.filter(obj_type=content_type).order_by("name", "-completed").distinct("name")
 
     # Each Job can have multiple jobs (tasks) with individual statistics success, warning, failure,
     # info the stats gauge exposes these
     task_stats_gauge = GaugeMetricFamily(
-        "nautobot_job_task_stats", "Per Job task statistics", labels=["module", "name", "status"]
+        f"nautobot_{content_type.model}_task_stats",
+        f"Per {content_type.name} task statistics",
+        labels=["module", "name", "status"],
     )
 
     # Each job has an overall status, one status per high level job not per task, which is one of pending,
     # running, completed, errored or failed as defined in the JobResultStatusChoices class
     execution_status_gauge = GaugeMetricFamily(
-        "nautobot_job_execution_status", "Job completion status", labels=["module", "status"]
+        f"nautobot_{content_type.model}_execution_status",
+        f"{content_type.name} completion status",
+        labels=["module", "status"],
     )
 
     for job in job_results:
