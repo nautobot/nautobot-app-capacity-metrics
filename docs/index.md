@@ -102,8 +102,9 @@ In the future it will be possible to add metrics by adding them in a predefined 
 ## Parameters
 
 The behavior of the app_metrics feature can be controlled with the following list of settings (under `nautobot_capacity_metrics > app_metrics`):
-- `jobs` boolean (default True), publish stats about the jobs (success, warning, info, failure)
-- `queues` boolean (default True), publish stats about RQ Worker (nbr of worker, nbr and type of job in the different queues)
+- `gitrepositories` boolean (default False), publish stats about the gitrepositories (success, warning, info, failure)
+- `jobs` boolean (default False), publish stats about the jobs (success, warning, info, failure)
+- `queues` boolean (default False), publish stats about RQ Worker (nbr of worker, nbr and type of job in the different queues)
 - `models` nested dict, publish the count for a given object (Nbr Device, Nbr IP etc.. ). The first level must be the name of the module in lowercase (dcim, ipam etc..), the second level must be the name of the object (usually starting with a uppercase)
     ```python
     {
@@ -172,17 +173,29 @@ Once installed, the plugin needs to be enabled in your `configuration.py`
 PLUGINS = ["nautobot_capacity_metrics"]
 
 # PLUGINS_CONFIG = {
-#   "nautobot_capacity_metrics": {
-#     "app_metrics": {
-#       "models": {
-#          "nautobot.dcim": {"Site": True, "Rack": True, "Device": True,},
-#          "nautobot.ipam": {"IPAddress": True, "Prefix": True},
-#        },
-#        "jobs": True,
-#        "queues": True,
-#       }
-#     }
-#   }
+#     "nautobot_capacity_metrics": {
+#         "app_metrics": {
+#             "gitrepositories": True,
+#             "jobs": True,
+#             "models": {
+#                 "dcim": {
+#                     "Site": True,
+#                     "Rack": True,
+#                     "Device": True,
+#                     "Interface": True,
+#                     "Cable": True,
+#                 },
+#                 "ipam": {
+#                     "IPAddress": True,
+#                     "Prefix": True,
+#                 },
+#                 "extras": {
+#                     "GitRepository": True
+#                 },
+#             },
+#             "queues": True,
+#         }
+#     },
 # }
 ```
 
@@ -245,6 +258,23 @@ Sign up [here](http://slack.networktocode.com/)
 The following metrics will be provided via the `/api/plugins/capacity-metrics/app-metrics` endpoint:
 
 ```
+# HELP nautobot_gitrepository_task_stats Per Git repository task statistics
+# TYPE nautobot_gitrepository_task_stats gauge
+nautobot_gitrepository_task_stats{module="repo1",name="main",status="success"} 1.0
+nautobot_gitrepository_task_stats{module="repo1",name="main",status="warning"} 0.0
+nautobot_gitrepository_task_stats{module="repo1",name="main",status="failure"} 0.0
+nautobot_gitrepository_task_stats{module="repo1",name="main",status="info"} 6.0
+nautobot_gitrepository_task_stats{module="repo1",name="total",status="success"} 1.0
+nautobot_gitrepository_task_stats{module="repo1",name="total",status="warning"} 0.0
+nautobot_gitrepository_task_stats{module="repo1",name="total",status="failure"} 0.0
+nautobot_gitrepository_task_stats{module="repo1",name="total",status="info"} 6.0
+# HELP nautobot_gitrepository_execution_status Git repository completion status
+# TYPE nautobot_gitrepository_execution_status gauge
+nautobot_gitrepository_execution_status{module="repo1",status="pending"} 0.0
+nautobot_gitrepository_execution_status{module="repo1",status="running"} 0.0
+nautobot_gitrepository_execution_status{module="repo1",status="completed"} 1.0
+nautobot_gitrepository_execution_status{module="repo1",status="errored"} 0.0
+nautobot_gitrepository_execution_status{module="repo1",status="failed"} 0.0
 # HELP nautobot_job_task_stats Per Job task statistics
 # TYPE nautobot_job_task_stats gauge
 nautobot_job_task_stats{module="local/users/CheckUser",name="total",status="success"} 1.0
@@ -269,6 +299,7 @@ nautobot_model_count{app="dcim",name="Rack"} 24.0
 nautobot_model_count{app="dcim",name="Device"} 46.0
 nautobot_model_count{app="ipam",name="IPAddress"} 58.0
 nautobot_model_count{app="ipam",name="Prefix"} 18.0
+nautobot_model_count{app="extras",name="GitRepository"} 1.0
 # HELP nautobot_app_metrics_processing_ms Time in ms to generate the app metrics endpoint
 # TYPE nautobot_app_metrics_processing_ms gauge
 nautobot_app_metrics_processing_ms 59.48257
