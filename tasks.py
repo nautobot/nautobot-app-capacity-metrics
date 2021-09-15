@@ -351,7 +351,7 @@ def unittest_coverage(context):
 @task
 def yamllint(context):
     """Run yamllint to validate Yaml files formatting."""
-    command = "yamllint --strict ."
+    command = "yamllint . --format standard"
     run_command(context, command)
 
 
