@@ -8,8 +8,8 @@ from django.conf import settings
 from prometheus_client.core import Metric, GaugeMetricFamily
 
 from django_rq.utils import get_statistics
-from nautobot.extras.choices import LogLevelChoices, JobResultStatusChoices
-from nautobot.extras.models import Job, JobLogEntry
+from nautobot.extras.choices import JobResultStatusChoices
+from nautobot.extras.models import Job
 
 
 logger = logging.getLogger(__name__)
