@@ -84,18 +84,6 @@ def metric_jobs(job_model=Job):
         if not job.data:
             continue
 
-        # Add metrics for each statistic in the jobs' tasks
-        groups = set(JobLogEntry.objects.filter(job_result=job).values_list("grouping", flat=True))
-        for group in sorted(groups):
-            logs = JobLogEntry.objects.filter(job_result__pk=job.pk, grouping=group)
-            for log_level in [
-                LogLevelChoices.LOG_SUCCESS,
-                LogLevelChoices.LOG_INFO,
-                LogLevelChoices.LOG_WARNING,
-                LogLevelChoices.LOG_FAILURE,
-            ]:
-                task_stats_gauge.add_metric([job.name, group, log_level], logs.filter(log_level=log_level).count())
-
         # Add metrics for the overall job status
         for status_name, _ in JobResultStatusChoices:
             if job.status == status_name:
