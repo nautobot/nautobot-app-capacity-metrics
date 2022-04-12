@@ -23,6 +23,7 @@ services:
       - "redis"
     <<: *nautobot-build
     <<: *nautobot-base
+
   worker:
     entrypoint: "nautobot-server rqworker_metrics"
     depends_on:
@@ -30,6 +31,15 @@ services:
     healthcheck:
       disable: true
     <<: *nautobot-base
+
+  celery:
+    entrypoint: "nautobot-server celery worker -l INFO"
+    depends_on:
+      - "nautobot"
+    healthcheck:
+      disable: true
+    <<: *nautobot-base
+
   prometheus:
     image: "prom/prometheus:v2.28.1"
     command: "--storage.tsdb.retention.time=1d --config.file=/etc/prometheus/prometheus.yml"
