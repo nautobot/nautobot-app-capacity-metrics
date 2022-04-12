@@ -1,5 +1,4 @@
 import os
-import sys
 
 from nautobot.core.settings import *  # noqa F401,F403
 from nautobot.core.settings_funcs import is_truthy, parse_redis_connection
@@ -175,8 +174,6 @@ FORCE_SCRIPT_NAME = None
 # Nautobot from an internal IP.
 INTERNAL_IPS = ("127.0.0.1", "::1")
 
-JOBS_ROOT="/source/jobs"
-
 # Enable custom logging. Please see the Django documentation for detailed guidance on configuring custom logs:
 #   https://docs.djangoproject.com/en/stable/topics/logging/
 LOG_LEVEL = "DEBUG" if DEBUG else "INFO"
@@ -308,11 +305,3 @@ SHORT_DATETIME_FORMAT = os.getenv("NAUTOBOT_SHORT_DATETIME_FORMAT", "Y-m-d H:i")
 # A list of strings designating all applications that are enabled in this Django installation. Each string should be a dotted Python path to an application configuration class (preferred), or a package containing an application.
 # https://nautobot.readthedocs.io/en/latest/configuration/optional-settings/#extra-applications
 EXTRA_INSTALLED_APPS = []
-
-# Django Debug Toolbar
-DEBUG_TOOLBAR_CONFIG = {"SHOW_TOOLBAR_CALLBACK": lambda _request: DEBUG}
-
-if "debug_toolbar" not in INSTALLED_APPS:  # noqa: F405
-    INSTALLED_APPS.append("debug_toolbar")  # noqa: F405
-if "debug_toolbar.middleware.DebugToolbarMiddleware" not in MIDDLEWARE:  # noqa: F405
-    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")  # noqa: F405
