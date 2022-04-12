@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nautobot-capacity-metrics"
-version = "1.1.0"
+version = "2.0.0"
 description = "Plugin to improve the instrumentation of Nautobot and expose additional metrics (Application Metrics, RQ Worker)."
 authors = ["Network to Code, LLC <opensource@networktocode.com>"]
 license = "Apache-2.0"
@@ -17,8 +17,8 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6"
-nautobot = "^1.0.0"
+python = "^3.7"
+nautobot = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 bandit = "*"

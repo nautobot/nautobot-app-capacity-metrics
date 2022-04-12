@@ -38,9 +38,9 @@ namespace = Collection("nautobot_capacity_metrics")
 namespace.configure(
     {
         "nautobot_capacity_metrics": {
-            "nautobot_ver": "1.0.1",
+            "nautobot_ver": "1.2.11",
             "project_name": "nautobot_capacity_metrics",
-            "python_ver": "3.6",
+            "python_ver": "3.7",
             "local": False,
             "compose_dir": os.path.join(os.path.dirname(__file__), "development"),
             "compose_files": [
@@ -351,7 +351,7 @@ def unittest_coverage(context):
 @task
 def yamllint(context):
     """Run yamllint to validate Yaml files formatting."""
-    command = "yamllint --strict ."
+    command = "yamllint . --format standard"
     run_command(context, command)
 
 

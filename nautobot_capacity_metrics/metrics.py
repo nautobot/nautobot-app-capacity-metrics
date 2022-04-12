@@ -84,12 +84,6 @@ def metric_jobs(job_model=Job):
         if not job.data:
             continue
 
-        # Add metrics for each statistic in the jobs' tasks
-        for job_name, stats in job.data.items():
-            if job_name != "output":
-                for status in ["success", "warning", "failure", "info"]:
-                    task_stats_gauge.add_metric([job.name, job_name, status], stats[status])
-
         # Add metrics for the overall job status
         for status_name, _ in JobResultStatusChoices:
             if job.status == status_name:
