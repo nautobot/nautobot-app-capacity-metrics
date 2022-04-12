@@ -8,8 +8,8 @@ from django.conf import settings
 from prometheus_client.core import Metric, GaugeMetricFamily
 
 from django_rq.utils import get_statistics
-from nautobot.extras.choices import JobResultStatusChoices
-from nautobot.extras.models import Job
+from nautobot.extras.choices import LogLevelChoices, JobResultStatusChoices
+from nautobot.extras.models import Job, JobLogEntry
 
 
 logger = logging.getLogger(__name__)
@@ -85,10 +85,11 @@ def metric_jobs(job_model=Job):
             continue
 
         # Add metrics for each statistic in the jobs' tasks
-        for job_name, stats in job.data.items():
-            if job_name != "output":
-                for status in ["success", "warning", "failure", "info"]:
-                    task_stats_gauge.add_metric([job.name, job_name, status], stats[status])
+        groups = set(JobLogEntry.objects.filter(job_result=job).values_list("grouping", flat=True))
+        for group in sorted(groups):
+            logs = JobLogEntry.objects.filter(job_result__pk=job.pk, grouping=group)
+            for log_level in [LogLevelChoices.LOG_SUCCESS, LogLevelChoices.LOG_INFO, LogLevelChoices.LOG_WARNING ,LogLevelChoices.LOG_FAILURE]:
+                task_stats_gauge.add_metric([job.name, group, log_level], logs.filter(log_level=log_level).count())
 
         # Add metrics for the overall job status
         for status_name, _ in JobResultStatusChoices:

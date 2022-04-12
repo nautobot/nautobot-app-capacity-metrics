@@ -1,6 +1,6 @@
 """Plugin declaration for nautobot_capacity_metrics."""
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 from nautobot.extras.plugins import PluginConfig
 
@@ -35,6 +35,7 @@ class MetricsExtConfig(PluginConfig):
     description = "Plugin to improve the instrumentation of Nautobot and expose additional metrics (Application Metrics, RQ Worker)."
     base_url = "capacity-metrics"
     required_settings = []
+    min_version = "1.2.0"
     max_version = "1.9999"
     default_settings = {
         "app_metrics": {
