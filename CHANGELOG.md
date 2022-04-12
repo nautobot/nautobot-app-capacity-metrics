@@ -5,7 +5,7 @@
 ### Changed
 
 - Migrated from Travis-CI to GitHub Actions (#27)
-- Updated `mkdocs` version in `docs/requirements.txt` from 1.1.2 to 1.2.3 (#30)
+- Updated `mkdocs` version in `docs/requirements.txt` from 1.1.2 to 1.3.0 (#30)
 
 ### Removed
 
