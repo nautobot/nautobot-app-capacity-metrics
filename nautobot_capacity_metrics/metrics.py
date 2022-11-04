@@ -1,7 +1,10 @@
 """Metrics libraries for the nautobot_capacity_metrics plugin."""
 import logging
 import importlib
+import platform
 from collections.abc import Iterable
+
+import django
 from packaging import version
 from django.conf import settings
 
@@ -117,6 +120,31 @@ def metric_models(params):
             except AttributeError:
                 logger.warning("Unable to load the module %s from the python library %s.models", model, app)
 
+    yield gauge
+
+
+def metric_versions():
+    """Return django, Nautobot, Python and app versions in Prometheus Metric format.
+
+    Return:
+        Iterator[GaugeMetricFamily]
+            nautobot_app_versions: the versions as labels
+    """
+    versions = {"python": platform.python_version(), "django": django.get_version(), "nautobot": settings.VERSION}
+
+    # Collect app versions
+    for app in settings.PLUGINS:
+        try:
+            app_module = importlib.import_module(app)
+        except ModuleNotFoundError:
+            logger.warning("Unable to find the python library %s", app)
+            continue
+        try:
+            versions[app] = app_module.__version__
+        except AttributeError:
+            logger.warning("Module %s does not have __version__ defined.", app)
+    gauge = GaugeMetricFamily("nautobot_app_versions", "Nautobot app versions", labels=versions.keys())
+    gauge.add_metric(versions.values(), 1)
     yield gauge
 
 
