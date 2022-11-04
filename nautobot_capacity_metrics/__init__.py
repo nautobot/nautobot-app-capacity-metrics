@@ -49,6 +49,7 @@ class MetricsExtConfig(PluginConfig):
             },
             "jobs": True,
             "queues": True,
+            "health_checks": True,
         }
     }
     caching_config = {}

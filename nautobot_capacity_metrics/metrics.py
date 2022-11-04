@@ -2,6 +2,8 @@
 import logging
 import importlib
 from collections.abc import Iterable
+
+from health_check.mixins import CheckMixin
 from packaging import version
 from django.conf import settings
 
@@ -117,6 +119,16 @@ def metric_models(params):
             except AttributeError:
                 logger.warning("Unable to load the module %s from the python library %s.models", model, app)
 
+    yield gauge
+
+
+def metric_health_checks():
+    """Runs health checks and returns them in Prometheus Metric format."""
+    gauge = GaugeMetricFamily("nautobot_health_check", "Per Nautobot Model count", labels=["name"])
+    health_checker = CheckMixin()
+    health_checker.run_check()
+    for plugin in health_checker.plugins:
+        gauge.add_metric([plugin.identifier()], plugin.status)
     yield gauge
 
 

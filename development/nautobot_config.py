@@ -270,6 +270,7 @@ PLUGINS_CONFIG = {
                 "extras": {"GitRepository": True},
             },
             "queues": True,
+            "health_checks": True,
         }
     },
 }
