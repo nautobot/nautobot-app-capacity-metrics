@@ -19,6 +19,8 @@ logger = logging.getLogger(__name__)
 
 nautobot_version = version.parse(settings.VERSION)
 
+PLUGIN_SETTINGS = settings.PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]
+
 
 def metric_rq():
     """Return stats about RQ Worker in Prometheus Metric format.
@@ -130,19 +132,24 @@ def metric_versions():
         Iterator[GaugeMetricFamily]
             nautobot_app_versions: the versions as labels
     """
-    versions = {"python": platform.python_version(), "django": django.get_version(), "nautobot": settings.VERSION}
+    versions = {}
+    if PLUGIN_SETTINGS["versions"]["basic"]:
+        versions.update(
+            {"python": platform.python_version(), "django": django.get_version(), "nautobot": settings.VERSION}
+        )
 
     # Collect app versions
-    for app in settings.PLUGINS:
-        try:
-            app_module = importlib.import_module(app)
-        except ModuleNotFoundError:
-            logger.warning("Unable to find the python library %s", app)
-            continue
-        try:
-            versions[app] = app_module.__version__
-        except AttributeError:
-            logger.warning("Module %s does not have __version__ defined.", app)
+    if PLUGIN_SETTINGS["versions"]["plugins"]:
+        for app in settings.PLUGINS:
+            try:
+                app_module = importlib.import_module(app)
+            except ModuleNotFoundError:
+                logger.warning("Unable to find the python library %s", app)
+                continue
+            try:
+                versions[app] = app_module.__version__
+            except AttributeError:
+                logger.warning("Module %s does not have __version__ defined.", app)
     gauge = GaugeMetricFamily("nautobot_app_versions", "Nautobot app versions", labels=versions.keys())
     gauge.add_metric(versions.values(), 1)
     yield gauge

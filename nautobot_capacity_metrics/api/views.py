@@ -41,7 +41,9 @@ class AppMetricsCollector:
             for metric in metric_models(PLUGIN_SETTINGS["models"]):
                 yield metric
 
-        if "versions" in PLUGIN_SETTINGS:
+        if "versions" in PLUGIN_SETTINGS and (
+            PLUGIN_SETTINGS["versions"]["basic"] or PLUGIN_SETTINGS["versions"]["plugins"]
+        ):
             for metric in metric_versions():
                 yield metric
 
