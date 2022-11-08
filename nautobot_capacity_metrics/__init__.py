@@ -50,7 +50,7 @@ class MetricsExtConfig(PluginConfig):
             "jobs": True,
             "queues": True,
             "versions": {
-                "basic": True,
+                "basic": False,
                 "plugins": False,
             },
         }
