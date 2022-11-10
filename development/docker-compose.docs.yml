@@ -5,7 +5,6 @@ services:
     image: "nautobot-capacity-metrics/nautobot:${NAUTOBOT_VER}-py${PYTHON_VER}"
     entrypoint: "mkdocs serve -v -a 0.0.0.0:8080"
     volumes:
-      - "../docs:/source/docs:ro"
-      - "../mkdocs.yml:/source/mkdocs.yml:ro"
+      - "../:/source"
     ports:
       - "8001:8080"

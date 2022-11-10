@@ -14,7 +14,7 @@ def register_metric_func(func):
     """Register an additional function to generate application metrics.
 
     Args:
-        func: python function, taking no argument that return a list of Prometheus Metric Object
+        func (Callable): python function, taking no argument that return a list of Prometheus Metric Object
     """
     if not callable(func):
         raise TypeError(
