@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- Add a metric for software versions (#36)
+
 ## 2.0.0
 
 ### Changed
