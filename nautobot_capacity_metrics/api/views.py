@@ -10,7 +10,13 @@ import prometheus_client
 from prometheus_client.core import CollectorRegistry, GaugeMetricFamily
 
 from nautobot_capacity_metrics import __REGISTRY__
-from nautobot_capacity_metrics.metrics import collect_extras_metric, metric_jobs, metric_models, metric_rq
+from nautobot_capacity_metrics.metrics import (
+    collect_extras_metric,
+    metric_jobs,
+    metric_models,
+    metric_rq,
+    metric_versions,
+)
 
 logger = logging.getLogger(__name__)
 PLUGIN_SETTINGS = settings.PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]
@@ -33,6 +39,12 @@ class AppMetricsCollector:
 
         if "models" in PLUGIN_SETTINGS:
             for metric in metric_models(PLUGIN_SETTINGS["models"]):
+                yield metric
+
+        if "versions" in PLUGIN_SETTINGS and (
+            PLUGIN_SETTINGS["versions"]["basic"] or PLUGIN_SETTINGS["versions"]["plugins"]
+        ):
+            for metric in metric_versions():
                 yield metric
 
         # --------------------------------------------------------------
