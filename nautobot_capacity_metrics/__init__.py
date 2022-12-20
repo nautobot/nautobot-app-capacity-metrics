@@ -28,11 +28,11 @@ class MetricsExtConfig(PluginConfig):
     """Plugin configuration for the nautobot_capacity_metrics plugin."""
 
     name = "nautobot_capacity_metrics"
-    verbose_name = "Metrics & Monitoring Extension Plugin"
+    verbose_name = "Data, Metrics, and Monitoring Prometheus Endpoints"
     version = __version__
     author = "Network to Code, LLC"
     author_email = "opensource@networktocode.com"
-    description = "Plugin to improve the instrumentation of Nautobot and expose additional metrics (Application Metrics, RQ Worker)."
+    description = "Lightweight Nautobot App to expose additional metrics as Prometheus endpoints. Includes exposing Nautobot object data and metrics that can be collected and later viewed in Visualization tools."
     base_url = "capacity-metrics"
     required_settings = []
     min_version = "1.2.0"
