@@ -19,6 +19,7 @@ packages = [
 [tool.poetry.dependencies]
 python = "^3.7"
 nautobot = "^1.4.0"
+setuptools = "^65.6.3"
 
 [tool.poetry.dev-dependencies]
 bandit = "*"
