@@ -20,5 +20,5 @@ class AppMetricEndpointTests(TestCase):
     def test_model_count_metrics(self):
         """Ensure that the model count metrics work correctly."""
         resp = self.client.get(self.app_metric_url)
-        if "TestModel" not in resp.content.decode("utf-8"):
+        if "nautobot_model_count_testmodel_total" not in resp.content.decode("utf-8"):
             self.fail("nautobot_capacity_metrics.test_models.models.TestModel does not report its count.")

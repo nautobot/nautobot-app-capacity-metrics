@@ -88,21 +88,53 @@ def metric_models(params):
         Iterator[GaugeMetricFamily]
             nautobot_model_count: with model name and application name as labels
     """
-    gauge = GaugeMetricFamily("nautobot_model_count", "Per Nautobot Model count", labels=["app", "name"])
     for app in params:
         app_config = deepcopy(params[app])  # Avoid changing the dictionary we are iterating over
         module = app_config.pop("_module", "nautobot")
-        for model in app_config:
+        for model, additional_fields in app_config.items():
             try:
                 models = importlib.import_module(f"{module}.{app}.models")
                 model_class = getattr(models, model)
-                gauge.add_metric([app, model], model_class.objects.count())
             except ModuleNotFoundError:
                 logger.warning("Unable to find the python library %s.models", app)
+                continue
             except AttributeError:
                 logger.warning("Unable to load the module %s from the python library %s.models", model, app)
+                continue
 
-    yield gauge
+            # Prepare the queryset, prefetching any related fields that are necessary
+            if not isinstance(additional_fields, list):
+                additional_fields = []
+            prefetch_related = [field.split("__", maxsplit=1)[0] for field in additional_fields]
+            queryset = model_class.objects.prefetch_related(*prefetch_related).order_by()
+
+            # Default without any filtering by addition fields
+            gauge = GaugeMetricFamily(
+                f"nautobot_model_count_{model.lower()}_total", "Nautobot model count", labels=["app"]
+            )
+            gauge.add_metric([app], queryset.count())
+            yield gauge
+
+            for additional_field in additional_fields:
+                yield from _individual_model_metric(additional_field, app, model, queryset)
+
+
+def _individual_model_metric(by_field, app, model, queryset):
+    """Yield an individual metric for the metric_models generator."""
+    path = by_field.split("__")
+    related_model_name = path[-2]
+    gauge = GaugeMetricFamily(
+        f"nautobot_model_count_{model.lower()}_by_{related_model_name}_total",
+        f"Nautobot {model.lower()} count per {related_model_name}",
+        labels=["app", related_model_name],
+    )
+    related_fields = queryset.values_list(by_field, flat=True).distinct()
+    for field in related_fields:
+        if field is None:
+            continue
+        filtered_queryset = queryset.filter(**{by_field: field})
+        gauge.add_metric([app, field], filtered_queryset.count())
+        yield gauge
 
 
 def metric_versions():
