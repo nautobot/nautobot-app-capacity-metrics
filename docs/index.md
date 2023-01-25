@@ -112,7 +112,7 @@ The behavior of the app_metrics feature can be controlled with the following lis
 - `gitrepositories` boolean (default **False**), publish stats about the gitrepositories (success, warning, info, failure)
 - `jobs` boolean (default **False**), publish stats about the jobs (success, warning, info, failure)
 - `queues` boolean (default **False**), publish stats about RQ Worker (nbr of worker, nbr and type of job in the different queues)
-- `models` nested dict, publish the count for a given object (Nbr Device, Nbr IP etc.. ). The first level must be the name of the module in lowercase (dcim, ipam etc..), the second level must be the name of the object (usually starting with a uppercase). Note that you can include models from plugins my specifying the module name under the "_module" key
+- `models` nested dict, publish the count for a given object (Nbr Device, Nbr IP etc.. ). The first level must be the name of the module in lowercase (dcim, ipam etc..), the second level must be the name of the object (usually starting with a uppercase). Note that you can include models from plugins by specifying the module name under the "_module" key
 - `versions` nested dict, publish the versions of installed software
 
     ```python
