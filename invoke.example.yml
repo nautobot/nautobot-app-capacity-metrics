@@ -1,9 +1,9 @@
 ---
 nautobot_capacity_metrics:
   project_name: "nautobot-capacity-metrics"
-  nautobot_ver: "1.2.11"
+  nautobot_ver: "1.4.10"
   local: false
-  python_ver: "3.7"
+  python_ver: "3.8"
   compose_dir: "development"
   compose_files:
     - "docker-compose.requirements.yml"
