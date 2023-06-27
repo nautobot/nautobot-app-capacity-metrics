@@ -152,6 +152,15 @@ scrape_configs:
     static_configs:
       - targets: ['nautobot']
 ```
+# Screenshots
+
+![Metrics](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-01.png "Metrics")
+
+![Device Per Status](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-02.png "Device Per Status")
+
+![Rack Capacity](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-03.png "Rack Capacity")
+
+![Prefix Capacity](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-04.png "Prefix Capacity")
 
 # RQ Worker Metrics Endpoint
 
