@@ -2,7 +2,7 @@
 
 __version__ = "1.1.1"
 
-from nautobot.extras.plugins import PluginConfig
+from nautobot.extras.plugins import NautobotAppConfig
 
 # Registry of functions that can generate additional application metrics
 # All functions in the registry should take no argument and return an Iterator (or list) of prometheus Metric Object
@@ -24,7 +24,7 @@ def register_metric_func(func):
     __REGISTRY__.append(func)
 
 
-class MetricsExtConfig(PluginConfig):
+class MetricsExtConfig(NautobotAppConfig):
     """Plugin configuration for the nautobot_capacity_metrics plugin."""
 
     name = "nautobot_capacity_metrics"
@@ -36,7 +36,7 @@ class MetricsExtConfig(PluginConfig):
     base_url = "capacity-metrics"
     required_settings = []
     min_version = "1.4.0"
-    max_version = "1.9999"
+    max_version = "2.99"
     default_settings = {
         "app_metrics": {
             "models": {
