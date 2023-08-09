@@ -13,7 +13,6 @@ from nautobot_capacity_metrics.metrics import (
     collect_extras_metric,
     metric_jobs,
     metric_models,
-    metric_rq,
     metric_versions,
 )
 
@@ -29,11 +28,11 @@ class AppMetricsCollector:
         start = time.time()
 
         if "gitrepositories" in PLUGIN_SETTINGS and PLUGIN_SETTINGS["gitrepositories"]:
-            for metric in metric_jobs(job_model=GitRepository):
+            for metric in metric_jobs(type_of_job="git_repository"):
                 yield metric
 
         if "jobs" in PLUGIN_SETTINGS and PLUGIN_SETTINGS["jobs"]:
-            for metric in metric_jobs():
+            for metric in metric_jobs(type_of_job="job"):
                 yield metric
 
         if "models" in PLUGIN_SETTINGS:
@@ -64,41 +63,10 @@ class AppMetricsCollector:
         yield gauge
 
 
-class QueueMetricsCollector:
-    """Collector class for collecting django rq related metrics metrics."""
-
-    def collect(self):  # pylint: disable=no-self-use
-        """Collect metrics for all plugins and extras."""
-        start = time.time()
-        for metric in metric_rq():
-            yield metric
-
-        gauge = GaugeMetricFamily(
-            "nautobot_rq_metrics_processing_ms", "Time in ms to generate the app metrics endpoint"
-        )
-        duration = time.time() - start
-        gauge.add_metric([], format(duration * 1000, ".5f"))
-        yield gauge
-
-
-def ExportToDjangoView(request, view=""):  # pylint: disable=invalid-name
-    """Exports /api/plugins/capacity-metrics/[app|rq]-metrics as a Django view."""
-    registry = CollectorRegistry()
-    if view == "rq-metrics":
-        collector = QueueMetricsCollector()
-        registry.register(collector)
-    elif view == "app-metrics":
-        collector = AppMetricsCollector()
-        registry.register(collector)
-    metrics_page = prometheus_client.generate_latest(registry)
-    return HttpResponse(metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST)
-
-
-def QueueMetricsView(request):  # pylint: disable=invalid-name
-    """Exports /api/plugins/capacity-metrics/rq-metrics as a Django view."""
-    return ExportToDjangoView(request, view="rq-metrics")
-
-
 def AppMetricsView(request):  # pylint: disable=invalid-name
     """Exports /api/plugins/capacity-metrics/app-metrics as a Django view."""
-    return ExportToDjangoView(request, view="app-metrics")
+    registry = CollectorRegistry()
+    collector = AppMetricsCollector()
+    registry.register(collector)
+    metrics_page = prometheus_client.generate_latest(registry)
+    return HttpResponse(metrics_page, content_type=prometheus_client.CONTENT_TYPE_LATEST)
