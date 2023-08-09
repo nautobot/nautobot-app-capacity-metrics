@@ -22,35 +22,6 @@ nautobot_version = version.parse(settings.VERSION)
 PLUGIN_SETTINGS = settings.PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]
 
 
-def metric_rq():
-    """Return stats about RQ Worker in Prometheus Metric format.
-
-    Return:
-        Iterator[GaugeMetricFamily]
-            nautobot_queue_number_jobs: Nbr Job per RQ queue and status
-            nautobot_queue_number_workers: Nbr worker per queue
-    """
-    queue_stats = get_statistics()
-
-    job = GaugeMetricFamily(
-        "nautobot_queue_number_jobs", "Number of Job per RQ queue and status", labels=["name", "status"]
-    )
-    worker = GaugeMetricFamily("nautobot_queue_number_workers", "Number of worker per queue", labels=["name"])
-
-    if "queues" in queue_stats:
-        for queue in queue_stats["queues"]:
-            for status in ["finished", "started", "deferred", "failed", "scheduled"]:
-                if f"{status}_jobs" not in queue.keys():
-                    continue
-                job.add_metric([queue["name"], status], queue[f"{status}_jobs"])
-
-            if "workers" in queue.keys():
-                worker.add_metric([queue["name"]], queue["workers"])
-
-    yield job
-    yield worker
-
-
 def metric_jobs(job_model=Job):
     """Return Jobs results in Prometheus Metric format.
 
