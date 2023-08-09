@@ -5,7 +5,6 @@ import logging
 from django.conf import settings
 from django.http import HttpResponse
 
-from nautobot.extras.models import GitRepository
 import prometheus_client
 from prometheus_client.core import CollectorRegistry, GaugeMetricFamily
 
