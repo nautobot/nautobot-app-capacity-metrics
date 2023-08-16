@@ -10,9 +10,7 @@ from django.conf import settings
 
 from prometheus_client.core import Metric, GaugeMetricFamily
 
-from django_rq.utils import get_statistics
 from nautobot.extras.choices import JobResultStatusChoices
-from nautobot.extras.models import Job
 
 
 logger = logging.getLogger(__name__)
@@ -22,36 +20,7 @@ nautobot_version = version.parse(settings.VERSION)
 PLUGIN_SETTINGS = settings.PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]
 
 
-def metric_rq():
-    """Return stats about RQ Worker in Prometheus Metric format.
-
-    Return:
-        Iterator[GaugeMetricFamily]
-            nautobot_queue_number_jobs: Nbr Job per RQ queue and status
-            nautobot_queue_number_workers: Nbr worker per queue
-    """
-    queue_stats = get_statistics()
-
-    job = GaugeMetricFamily(
-        "nautobot_queue_number_jobs", "Number of Job per RQ queue and status", labels=["name", "status"]
-    )
-    worker = GaugeMetricFamily("nautobot_queue_number_workers", "Number of worker per queue", labels=["name"])
-
-    if "queues" in queue_stats:
-        for queue in queue_stats["queues"]:
-            for status in ["finished", "started", "deferred", "failed", "scheduled"]:
-                if f"{status}_jobs" not in queue.keys():
-                    continue
-                job.add_metric([queue["name"], status], queue[f"{status}_jobs"])
-
-            if "workers" in queue.keys():
-                worker.add_metric([queue["name"]], queue["workers"])
-
-    yield job
-    yield worker
-
-
-def metric_jobs(job_model=Job):
+def metric_jobs(type_of_job):
     """Return Jobs results in Prometheus Metric format.
 
     Return:
@@ -60,35 +29,43 @@ def metric_jobs(job_model=Job):
         Iterator[GaugeMetricFamily]
             nautobot_job_execution_status: with jobs module the name and overall status of the job
     """
-    from django.contrib.contenttypes.models import ContentType  # pylint: disable=import-outside-toplevel
     from nautobot.extras.models import JobResult  # pylint: disable=import-outside-toplevel,no-name-in-module
 
-    # Get the content type for the model currently Jobs and GitRepositories
-    content_type = ContentType.objects.get_for_model(job_model)
+    git_repo_job_prefix = "nautobot.core.jobs.GitRepository"
 
     # Get the latest result for each job
-    job_results = JobResult.objects.filter(obj_type=content_type).order_by("name", "-completed").distinct("name")
+    if type_of_job == "job":
+        job_results = (
+            JobResult.objects.exclude(task_name__startswith=git_repo_job_prefix)
+            .order_by("name", "-date_done")
+            .distinct("name")
+        )
+    elif type_of_job == "git_repository":
+        job_results = (
+            JobResult.objects.filter(task_name__startswith=git_repo_job_prefix)
+            .order_by("name", "-date_done")
+            .distinct("name")
+        )
+    else:
+        raise ValueError(f"Unknown type of job {type_of_job} - choose from 'job' or 'git_repository.")
 
     # Each Job can have multiple jobs (tasks) with individual statistics success, warning, failure,
     # info the stats gauge exposes these
     task_stats_gauge = GaugeMetricFamily(
-        f"nautobot_{content_type.model}_task_stats",
-        f"Per {content_type.name} task statistics",
+        f"nautobot_{type_of_job}_task_stats",
+        f"Per {type_of_job.title()} task statistics",
         labels=["module", "name", "status"],
     )
 
     # Each job has an overall status, one status per high level job not per task, which is one of pending,
     # running, completed, errored or failed as defined in the JobResultStatusChoices class
     execution_status_gauge = GaugeMetricFamily(
-        f"nautobot_{content_type.model}_execution_status",
-        f"{content_type.name} completion status",
+        f"nautobot_{type_of_job}_execution_status",
+        f"{type_of_job.title()} completion status",
         labels=["module", "status"],
     )
 
     for job in job_results:
-        if not job.data:
-            continue
-
         # Add metrics for the overall job status
         for status_name, _ in JobResultStatusChoices:
             if job.status == status_name:
