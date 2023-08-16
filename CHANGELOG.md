@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.0.0-beta.1
+
+Compatible with and only with Nautobot version 2.0.0-beta.2.
+
+### Added
+
+- Possibility to use `invoke logs` to view container logs (#52)
+
+### Changed
+
+- Added compatibility with Nautobot 2.0, removed Nautobot 1.0 compatibility (#52)
+- Updated Ubuntu version in CI to 22.04
+
+### Removed
+
+- Metrics for (deprecated) RQ workers (#52)
+- Django management command for RQ worker metrics (#52)
+
 ## 2.0.0
 
 ### Changed
