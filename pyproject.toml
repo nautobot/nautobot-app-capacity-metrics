@@ -17,7 +17,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8,<3.11"
+python = ">=3.8, <3.11"
 nautobot = "2.0.0-beta2"
 
 [tool.poetry.dev-dependencies]
