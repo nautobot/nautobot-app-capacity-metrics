@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0-beta.2
+
+Compatible with and only with Nautobot version 2.0.0-rc.1.
+
 ## 3.0.0-beta.1
 
 Compatible with and only with Nautobot version 2.0.0-beta.2.
