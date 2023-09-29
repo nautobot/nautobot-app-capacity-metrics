@@ -26,6 +26,10 @@ Compatible with and only with Nautobot version 2.0.0-beta.2.
 - Metrics for (deprecated) RQ workers (#52)
 - Django management command for RQ worker metrics (#52)
 
+## 2.1.1
+
+Re-release due to publishing issues.
+
 ## 2.1.0
 
 ### Added
