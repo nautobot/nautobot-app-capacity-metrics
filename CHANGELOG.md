@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1
+
+Fixed incorrect self-reporting of plugin version.
+
 ## 3.0.0
 
 Compatible with Nautobot version >=2.0.0.
