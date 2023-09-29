@@ -10,12 +10,15 @@ services:
     volumes:
       - "./nautobot_config.py:/opt/nautobot/nautobot_config.py"
       - "../:/source"
+      - "./example_jobs:/opt/nautobot/jobs"
   worker:
     volumes:
       - "./nautobot_config.py:/opt/nautobot/nautobot_config.py"
       - "../:/source"
+      - "./example_jobs:/opt/nautobot/jobs"
 
   celery:
     volumes:
       - "./nautobot_config.py:/opt/nautobot/nautobot_config.py"
       - "../:/source"
+      - "./example_jobs:/opt/nautobot/jobs"
