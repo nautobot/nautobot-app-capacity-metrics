@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1
+
+Re-release due to publishing issues.
+
 ## 2.1.0
 
 ### Added
