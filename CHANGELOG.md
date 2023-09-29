@@ -8,7 +8,8 @@
 
 ### Changed
 
-- Changed minimum compatible Nautobot version to 1.4 (#41)
+- Changed minimum compatible Nautobot version to 1.6
+- Deprecates Python 3.7
 - Updated app description in app config (#45)
 - Added screenshots to the README (#51)
 
