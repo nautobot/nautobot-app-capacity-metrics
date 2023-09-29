@@ -2,7 +2,7 @@
 
 ## 3.0.0
 
-Compatible with and only with Nautobot version 2.0.0.
+Compatible with Nautobot version >=2.0.0.
 
 ## 3.0.0-rc.2
 
