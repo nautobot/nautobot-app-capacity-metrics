@@ -38,7 +38,7 @@ namespace = Collection("nautobot_capacity_metrics")
 namespace.configure(
     {
         "nautobot_capacity_metrics": {
-            "nautobot_ver": "1.4.10",
+            "nautobot_ver": "1.6.2",
             "project_name": "nautobot_capacity_metrics",
             "python_ver": "3.8",
             "local": False,

@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.1.0
+
+### Added
+
+- Added a metric for software version. (#36)
+
+### Changed
+
+- Changed minimum compatible Nautobot version to 1.6
+- Deprecates Python 3.7
+- Updated app description in app config (#45)
+- Added screenshots to the README (#51)
+
+### Housekeeping
+
+- Introduced testing against upstream Nautobot (#41)
+- Changed CODEOWNERS to a group instead of individual people (#43)
+
 ## 2.0.0
 
 ### Changed
