@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0
+
+Compatible with and only with Nautobot version 2.0.0.
+
 ## 3.0.0-rc.2
 
 Compatible with and only with Nautobot version 2.0.0-rc.2.
@@ -21,6 +25,24 @@ Compatible with and only with Nautobot version 2.0.0-beta.2.
 
 - Metrics for (deprecated) RQ workers (#52)
 - Django management command for RQ worker metrics (#52)
+
+## 2.1.0
+
+### Added
+
+- Added a metric for software version. (#36)
+
+### Changed
+
+- Changed minimum compatible Nautobot version to 1.6
+- Deprecates Python 3.7
+- Updated app description in app config (#45)
+- Added screenshots to the README (#51)
+
+### Housekeeping
+
+- Introduced testing against upstream Nautobot (#41)
+- Changed CODEOWNERS to a group instead of individual people (#43)
 
 ## 2.0.0
 
