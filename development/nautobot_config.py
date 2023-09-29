@@ -270,6 +270,10 @@ PLUGINS_CONFIG = {
                 "extras": {"GitRepository": True},
             },
             "queues": True,
+            "versions": {
+                "basic": True,
+                "plugins": True,
+            },
         }
     },
 }
