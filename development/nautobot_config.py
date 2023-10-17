@@ -249,7 +249,7 @@ NAPALM_TIMEOUT = int(os.getenv("NAUTOBOT_NAPALM_TIMEOUT", 30))
 NAPALM_ARGS = {}
 
 # Enable installed plugins. Add the name of each plugin to the list.
-PLUGINS = ["nautobot_capacity_metrics"]
+PLUGINS = ["nautobot_capacity_metrics", "nautobot_capacity_metrics.test_models"]
 
 # Plugins configuration settings. These settings are used by various plugins that the user may have installed.
 # Each key in the dictionary is the name of an installed plugin and its value is a dictionary of settings.
@@ -268,6 +268,7 @@ PLUGINS_CONFIG = {
                 },
                 "ipam": {"IPAddress": True, "Prefix": True},
                 "extras": {"GitRepository": True},
+                "test_models": {"_module": "nautobot_capacity_metrics", "TestModel": True},
             },
             "queues": True,
             "versions": {
