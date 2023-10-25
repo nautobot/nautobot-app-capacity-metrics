@@ -13,7 +13,7 @@ class RegistryTests(TestCase):
             """Dummy metric function."""
 
         self.assertRaises(TypeError, register_metric_func, "test")
-        self.assertRaises(TypeError, register_metric_func, dict(test="test"))
+        self.assertRaises(TypeError, register_metric_func, {"test": "test"})
         self.assertRaises(TypeError, register_metric_func, [1, 2, 3])
 
         register_metric_func(myfunction)

@@ -23,7 +23,7 @@ PLUGIN_SETTINGS = settings.PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metr
 class AppMetricsCollector:
     """Collector class for collecting plugin and extras application metrics."""
 
-    def collect(self):  # pylint: disable=no-self-use
+    def collect(self):
         """Collect metrics for all plugins and extras."""
         start = time.time()
 
