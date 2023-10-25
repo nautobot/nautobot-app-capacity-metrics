@@ -129,13 +129,35 @@ if not _TESTING:
 #
 
 # Enable installed Apps. Add the name of each App to the list.
-PLUGINS = ["nautobot_capacity_metrics"]
+PLUGINS = [
+    "nautobot_capacity_metrics",
+    "nautobot_capacity_metrics.test_models",
+]
 
 # Apps configuration settings. These settings are used by various Apps that the user may have installed.
 # Each key in the dictionary is the name of an installed App and its value is a dictionary of settings.
-# PLUGINS_CONFIG = {
-#     'nautobot_capacity_metrics': {
-#         'foo': 'bar',
-#         'buzz': 'bazz'
-#     }
-# }
+PLUGINS_CONFIG = {
+    "nautobot_capacity_metrics": {
+        "app_metrics": {
+            "gitrepositories": True,
+            "jobs": True,
+            "models": {
+                "dcim": {
+                    "Site": True,
+                    "Rack": True,
+                    "Device": True,
+                    "Interface": True,
+                    "Cable": True,
+                },
+                "ipam": {"IPAddress": True, "Prefix": True},
+                "extras": {"GitRepository": True},
+                "test_models": {"_module": "nautobot_capacity_metrics", "TestModel": True},
+            },
+            "queues": True,
+            "versions": {
+                "basic": True,
+                "plugins": True,
+            },
+        }
+    },
+}
