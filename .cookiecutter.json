@@ -1,0 +1,35 @@
+{
+    "cookiecutter": {
+        "codeowner_github_usernames": "@nautobot/po-tl-telemetry",
+        "full_name": "Network to Code, LLC",
+        "email": "opensource@networktocode.com",
+        "github_org": "nautobot",
+        "plugin_name": "nautobot_capacity_metrics",
+        "verbose_name": "Metrics & Monitoring Extension Plugin",
+        "plugin_slug": "nautobot-capacity-metrics",
+        "project_slug": "nautobot-plugin-capacity-metrics",
+        "repo_url": "https://github.com/nautobot/nautobot-plugin-capacity-metrics",
+        "base_url": "capacity-metrics",
+        "min_nautobot_version": "2.0.0",
+        "max_nautobot_version": "2.9999",
+        "camel_name": "NautobotCapacityMetrics",
+        "project_short_description": "Plugin to improve the instrumentation of Nautobot and expose additional metrics (Application Metrics, RQ Worker).",
+        "model_class_name": "None",
+        "open_source_license": "Apache-2.0",
+        "docs_base_url": "https://docs.nautobot.com",
+        "docs_app_url": "https://docs.nautobot.com/projects/capacity-metrics/en/latest",
+        "_drift_manager": {
+            "template": "https://github.com/nautobot/cookiecutter-nautobot-app.git",
+            "template_dir": "nautobot-app",
+            "template_ref": "develop",
+            "cookie_dir": "",
+            "branch_prefix": "drift-manager",
+            "pull_request_strategy": "create",
+            "post_actions": [
+                "black"
+            ],
+            "draft": true,
+            "baked_commit_ref": ""
+        }
+    }
+}
