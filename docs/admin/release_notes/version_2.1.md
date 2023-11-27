@@ -1,35 +1,10 @@
-# v1.0 Release Notes
-
-!!! warning "Developer Note - Remove Me!"
-    Guiding Principles:
-
-    - Changelogs are for humans, not machines.
-    - There should be an entry for every single version.
-    - The same types of changes should be grouped.
-    - Versions and sections should be linkable.
-    - The latest version comes first.
-    - The release date of each version is displayed.
-    - Mention whether you follow Semantic Versioning.
-
-    Types of changes:
-
-    - `Added` for new features.
-    - `Changed` for changes in existing functionality.
-    - `Deprecated` for soon-to-be removed features.
-    - `Removed` for now removed features.
-    - `Fixed` for any bug fixes.
-    - `Security` in case of vulnerabilities.
+# v2.1 Release Notes
 
 
-This document describes all new features and changes in the release `1.0`. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+This document describes all new features and changes in the release `2.1`. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Release Overview
 
-- Major features or milestones
-- Achieved in this `x.y` release
-- Changes to compatibility with Nautobot and/or other plugins, libraries etc.
-
-## [v1.0.1] - 2021-09-08
+## [v2.1.1] - 2023-09-29
 
 ### Added
 
@@ -39,10 +14,20 @@ This document describes all new features and changes in the release `1.0`. The f
 
 - [#123](https://github.com/nautobot/nautobot-plugin-capacity-metrics/issues/123) Fixed Tag filtering not working in job launch form
 
-## [v1.0.0] - 2021-08-03
+## [v2.1.0] - 2023-09-29
 
 ### Added
 
+- [#36](https://github.com/nautobot/nautobot-plugin-capacity-metrics/pull/36) Added a metric for software version
+
 ### Changed
 
-### Fixed
+- Updated minimum version of Nautobot to 1.6
+- Deprecates support for Python 3.7
+- [#45](https://github.com/nautobot/nautobot-plugin-capacity-metrics/pull/45) Updated app description in app config
+- [#51](https://github.com/nautobot/nautobot-plugin-capacity-metrics/pull/51) Added screenshots to README
+
+### Housekeeping
+
+- [#41](https://github.com/nautobot/nautobot-plugin-capacity-metrics/pull/41) Introduced testing against upstream Nautobot
+- [#43](https://github.com/nautobot/nautobot-plugin-capacity-metrics/pull/43) Changed CODEOWNERS to a group instead of individual people
