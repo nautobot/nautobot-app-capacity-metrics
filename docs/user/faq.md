@@ -14,6 +14,6 @@
 
 > Yes, this is expected. This API endpoint is not published in the swagger documentation because it's not a REST compatible endpoint.
 
-## Does this plugin support Nautobot 2.9 ?
+## Does this plugin support Nautobot 2.0 ?
 
 > Yes
