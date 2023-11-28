@@ -12,8 +12,14 @@ Documentation is built using [mkdocs](https://www.mkdocs.org/). The [Docker base
 
 ## Branching Policy
 
-!!! warning "Developer Note - Remove Me!"
-    What branching policy is used for this project and where contributions should be made.
+The branching policy includes the following tenets:
+
+- The `develop` branch is the primary branch to develop off of.
+- PRs intended to add new features should be sourced from the `develop` branch.
+- PRs intended to address bug fixes and security patches should be sourced from the `develop` branch.
+- PRs intended to add new features that break backward compatibility should be discussed before a PR is created.
+
+Nautobot Capacity Metrics app will observe semantic versioning, as of 1.0. This may result in a quick turn around in minor versions to keep pace with an ever-growing feature set.
 
 ## Release Policy
 
