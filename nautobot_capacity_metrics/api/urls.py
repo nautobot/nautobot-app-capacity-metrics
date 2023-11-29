@@ -1,6 +1,4 @@
 """Django URL patterns for nautobot_capacity_metrics plugin."""
-
-from django.conf import settings
 from django.urls import path
 from . import views
 
