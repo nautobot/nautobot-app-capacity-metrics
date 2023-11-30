@@ -1,26 +1,29 @@
 # Metrics & Monitoring Extension App
 
-A plugin for [Nautobot](https://github.com/nautobot/nautobot) to expose additional metrics information.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/icon-nautobot-capacity-metrics.svg" class="logo" height="200px">
+  <br>
+  <a href="https://github.com/nautobot/nautobot-plugin-capacity-metrics/actions"><img src="https://github.com/nautobot/nautobot-plugin-capacity-metrics/actions/workflows/ci.yml/badge.svg?branch=main"></a>
+  <a href="https://docs.nautobot.com/projects/capacity-metrics/en/latest/"><img src="https://readthedocs.org/projects/nautobot-plugin-capacity-metrics/badge/"></a>
+  <a href="https://pypi.org/project/nautobot-capacity-metrics/"><img src="https://img.shields.io/pypi/v/nautobot-capacity-metrics"></a>
+  <a href="https://pypi.org/project/nautobot-capacity-metrics/"><img src="https://img.shields.io/pypi/dm/nautobot-capacity-metrics"></a>
+  <br>
+  An <a href="https://www.networktocode.com/nautobot/apps/">App</a> for <a href="https://nautobot.com/">Nautobot that exposes additional metrics information</a>.
+</p>
 
-The plugin is composed of multiple features that can be used independently:
+## Metrics Endpoints
 
-- Application Metrics Endpoint: prometheus endpoint at `/api/plugins/capacity-metrics/app-metrics`
-
-# Application Metrics Endpoint
-
-Nautobot already exposes some information via a Prometheus endpoint but the information currently available are mostly at the system level and not at the application level.
+Nautobot already exposes some information via a Prometheus endpoint but the information currently available are mostly at the system level and not at the application level. System metrics and application level metrics are complementary with each other.
 
 - **SYSTEM Metrics** are very useful to instrument code, track ephemeral information and get a better visibility into what is happening. (Example of metrics: nbr of requests, requests per second, nbr of exceptions, response time, etc ...) The idea is that when multiple instances of Nautobot are running behind a load balancer each one will produce a different set of metrics and the monitoring system needs to collect these metrics from all running instances and aggregate them in a dashboard. Nautobot exposes some system metrics at `localhost/metrics` [Nautobot DOC](https://nautobot.readthedocs.io/en/stable/additional-features/prometheus-metrics/).
-- **APPLICATION Metrics** are at a higher level and represent information that is the same across all instances of an application running behind a load balancer. If I have 3 instances of Nautobot running, there is no point to ask each of them how many Device objects I have in the database, since they will always return the same information. In this case, the goal is to expose only 1 endpoint that can be served by any running instance.
+- **APPLICATION Metrics** are at a higher level and represent information that is the same across all instances of an application running behind a load balancer. If I have 3 instances of Nautobot running, there is no point to ask each of them how many Device objects I have in the database, since they will always return the same information. In this case, the goal is to expose only 1 endpoint that can be served by any running instance. The prometheus endpoint is at `/api/plugins/capacity-metrics/app-metrics`.
 
-System metrics and application level metrics are complementary with each other
-
-Currently the plugin exposes these simple metrics by default:
+Currently the app exposes these simple metrics by default:
 
 - Jobs stats
 - Models count (configurable via nautobot_config.py)
 
-In addition, it is possible to use the plugin configuration to expose metrics about the versions of Python, Django, Nautobot and the installed Nautobot plugins.
+In addition, it is possible to use the app configuration to expose metrics about the versions of Python, Django, Nautobot and the installed Nautobot apps/plugins.
 
 ## Try it out!
 
