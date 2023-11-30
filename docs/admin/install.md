@@ -37,9 +37,33 @@ Once installed, the plugin needs to be enabled in your Nautobot configuration. T
 PLUGINS = ["nautobot_capacity_metrics"]
 
 # PLUGINS_CONFIG = {
-#   "nautobot_capacity_metrics": {
-#     ADD YOUR SETTINGS HERE
-#   }
+#     "nautobot_capacity_metrics": {
+#         "app_metrics": {
+#             "gitrepositories": True,
+#             "jobs": True,
+#             "models": {
+#                 "dcim": {
+#                     "Site": True,
+#                     "Rack": True,
+#                     "Device": True,
+#                     "Interface": True,
+#                     "Cable": True,
+#                 },
+#                 "ipam": {
+#                     "IPAddress": True,
+#                     "Prefix": True,
+#                 },
+#                 "extras": {
+#                     "GitRepository": True
+#                 },
+#             },
+#             "queues": True,
+#             "versions": {
+#                 "basic": True,
+#                 "plugins": True,
+#             }
+#         }
+#     },
 # }
 ```
 
@@ -61,11 +85,15 @@ sudo systemctl restart nautobot nautobot-worker nautobot-scheduler
 
 ## App Configuration
 
-!!! warning "Developer Note - Remove Me!"
-    Any configuration required to get the App set up. Edit the table below as per the examples provided.
-
 The plugin behavior can be controlled with the following list of settings:
 
 | Key     | Example | Default | Description                          |
 | ------- | ------ | -------- | ------------------------------------- |
 | `app_metrics` | `{"models": {"dcim": "Device": True}}` | `{"models": {"dcim": {"Site": True, "Rack": True, "Device": True}, "ipam": {"IPAddress": True, "Prefix": True}}, "jobs": True, "queues": True, "versions": {"basic": False, "plugins": False}` | Specifies which metrics to publish for each app. |
+
+
+## Included Grafana Dashboard
+
+Included within this plugin is a Grafana dashboard which will work with the example configuration above. To install this dashboard import the JSON from [Grafana Dashboard](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/nautobot_grafana_dashboard.json) into Grafana.
+
+![Nautobot Grafana Dashboard](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/nautobot_grafana_dashboard.png)
