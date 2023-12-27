@@ -1,10 +1,10 @@
 ---
 dev_addr: "127.0.0.1:8001"
-edit_uri: "edit/main/nautobot-plugin-capacity-metrics/docs"
+edit_uri: "edit/main/nautobot-app-capacity-metrics/docs"
 site_dir: "nautobot_capacity_metrics/static/nautobot_capacity_metrics/docs"
-site_name: "Metrics & Monitoring Extension Plugin Documentation"
+site_name: "Metrics & Monitoring Extension App Documentation"
 site_url: "https://docs.nautobot.com/projects/capacity-metrics/en/latest/"
-repo_url: "https://github.com/nautobot/nautobot-plugin-capacity-metrics"
+repo_url: "https://github.com/nautobot/nautobot-app-capacity-metrics"
 copyright: "Copyright &copy; The Authors"
 theme:
   name: "material"

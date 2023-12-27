@@ -1,4 +1,4 @@
-"""Metrics libraries for the nautobot_capacity_metrics plugin."""
+"""Metrics libraries for the nautobot_capacity_metrics app."""
 import logging
 import importlib
 import platform

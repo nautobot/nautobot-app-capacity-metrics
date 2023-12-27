@@ -1,1 +1,1 @@
-"""REST API module for nautobot_capacity_metrics plugin."""
+"""REST API module for nautobot_capacity_metrics app."""

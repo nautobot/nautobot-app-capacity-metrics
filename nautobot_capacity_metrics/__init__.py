@@ -1,11 +1,11 @@
-"""Plugin declaration for nautobot_capacity_metrics."""
+"""App declaration for nautobot_capacity_metrics."""
 # Metadata is inherited from Nautobot. If not including Nautobot in the environment, this should be added
 from importlib import metadata
 from typing import Callable
 
 __version__ = metadata.version(__name__)
 
-from nautobot.extras.plugins import NautobotAppConfig
+from nautobot.apps import NautobotAppConfig
 
 # Registry of functions that can generate additional application metrics
 # All functions in the registry should take no argument and return an Iterator (or list) of prometheus Metric Object
@@ -28,7 +28,7 @@ def register_metric_func(func: Callable):
 
 
 class NautobotCapacityMetricsConfig(NautobotAppConfig):
-    """Plugin configuration for the nautobot_capacity_metrics plugin."""
+    """App configuration for the nautobot_capacity_metrics app."""
 
     name = "nautobot_capacity_metrics"
     verbose_name = "Data, Metrics, and Monitoring Prometheus Endpoints"

@@ -1,4 +1,4 @@
-"""Django URL patterns for nautobot_capacity_metrics plugin."""
+"""Django URL patterns for nautobot_capacity_metrics app."""
 from django.urls import path
 from . import views
 

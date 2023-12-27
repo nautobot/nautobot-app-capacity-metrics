@@ -11,10 +11,10 @@ System metrics and application level metrics are complementary with each other:
 
 No, currently no authentication is required (or possible).
 
-## I don't see the plugin in the API documentation, is it expected?
+## I don't see the app in the API documentation, is it expected?
 
 Yes, this is expected. This API endpoint is not published in the swagger documentation because it's not a REST compatible endpoint.
 
-## Does this plugin support Nautobot 2.0?
+## Does this app support Nautobot 2.0?
 
 Yes

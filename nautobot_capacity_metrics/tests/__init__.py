@@ -1,1 +1,1 @@
-"""Unit tests for nautobot_capacity_metrics plugin."""
+"""Unit tests for nautobot_capacity_metrics app."""

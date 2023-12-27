@@ -18,17 +18,17 @@ scrape_configs:
 
 ### Queue System Metrics Endpoint
 
-In addition to the default Nautobot system metrics which are exposed at `/metrics` which are largely centered around the Django system on which Nautobot is based this plugin provides some additional system metrics around the queuing system Nautobot uses to communicate with the Nautobot worker services.
+In addition to the default Nautobot system metrics which are exposed at `/metrics` which are largely centered around the Django system on which Nautobot is based this app provides some additional system metrics around the queuing system Nautobot uses to communicate with the Nautobot worker services.
 
 ## Use-cases and common workflows
 
 ### Add your own metrics
 
-This plugin supports some options to generate and publish your own application metrics behind the same endpoint.
+This app supports some options to generate and publish your own application metrics behind the same endpoint.
 
 #### Option 1 - Register function(s) via nautobot_config.py
 
-It's possible to create your own function to generate some metrics and register it to the plugin in the nautobot_config.py.
+It's possible to create your own function to generate some metrics and register it to the app in the nautobot_config.py.
 Here is an example where the custom function are centralized in a `metrics.py` file, located next to the main `nautobot_config.py`.
 
 ```python
@@ -61,7 +61,7 @@ def metric_prefix_utilization():
     yield g
 ```
 
-The new function can be imported in the `nautobot_config.py` file and registered with the plugin.
+The new function can be imported in the `nautobot_config.py` file and registered with the app.
 
 ```python
 # nautobot_config.py
@@ -77,19 +77,19 @@ PLUGINS_CONFIG = {
 },
 ```
 
-#### Option 2 - Registry for third party plugins
+#### Option 2 - Registry for third party apps
 
-Any plugin can include its own metrics to improve the visibility and/or the troubleshooting of the plugin itself.
-Third party plugins can register their own function(s) using the `ready()` function as part of their `PluginConfig` class.
+Any app can include its own metrics to improve the visibility and/or the troubleshooting of the app itself.
+Third party apps can register their own function(s) using the `ready()` function as part of their `NautobotAppConfig` class.
 
 ```python
-# my_plugin/__init__.py
+# my_app/__init__.py
 from nautobot_capacity_metrics import register_metric_func
 from nautobot.metrics import metric_circuit_bandwidth
 
-class MyPluginConfig(PluginConfig):
-    name = "nautobot_myplugin"
-    verbose_name = "Demo Plugin"
+class MyAppConfig(NautobotAppConfig):
+    name = "nautobot_myapp"
+    verbose_name = "Demo App"
     # [ ... ]
     def ready(self):
         super().ready()
@@ -100,13 +100,13 @@ class MyPluginConfig(PluginConfig):
 
 In the future it will be possible to add metrics by adding them in a predefined directory, similar to jobs.
 
-## Plugin Configuration Parameters
+## App Configuration Parameters
 
 The behavior of the app_metrics feature can be controlled with the following list of settings (under `nautobot_capacity_metrics > app_metrics`):
 - `gitrepositories` boolean (default **False**), publish stats about the gitrepositories (success, warning, info, failure)
 - `jobs` boolean (default **False**), publish stats about the jobs (success, warning, info, failure)
 - `queues` boolean (default **False**), publish stats about Worker (nbr of worker, nbr and type of job in the different queues)
-- `models` nested dict, publish the count for a given object (Nbr Device, Nbr IP etc.. ). The first level must be the name of the module in lowercase (dcim, ipam etc..), the second level must be the name of the object (usually starting with a uppercase). Note that you can include models from plugins by specifying the module name under the "_module" key
+- `models` nested dict, publish the count for a given object (Nbr Device, Nbr IP etc.. ). The first level must be the name of the module in lowercase (dcim, ipam etc..), the second level must be the name of the object (usually starting with a uppercase). Note that you can include models from apps by specifying the module name under the "_module" key
 - `versions` nested dict, publish the versions of installed software
 
     ```python
@@ -130,10 +130,10 @@ The behavior of the app_metrics feature can be controlled with the following lis
 
 ## Screenshots
 
-![Metrics](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-01.png "Metrics")
+![Metrics](https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-01.png "Metrics")
 
-![Device Per Status](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-02.png "Device Per Status")
+![Device Per Status](https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-02.png "Device Per Status")
 
-![Rack Capacity](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-03.png "Rack Capacity")
+![Rack Capacity](https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-03.png "Rack Capacity")
 
-![Prefix Capacity](https://raw.githubusercontent.com/nautobot/nautobot-plugin-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-04.png "Prefix Capacity")
+![Prefix Capacity](https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/capacity-metrics-screenshot-04.png "Prefix Capacity")

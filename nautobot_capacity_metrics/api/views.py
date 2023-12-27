@@ -21,10 +21,10 @@ PLUGIN_SETTINGS = settings.PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metr
 
 
 class AppMetricsCollector:
-    """Collector class for collecting plugin and extras application metrics."""
+    """Collector class for collecting app and extras application metrics."""
 
     def collect(self):
-        """Collect metrics for all plugins and extras."""
+        """Collect metrics for all apps and extras."""
         start = time.time()
 
         if "gitrepositories" in PLUGIN_SETTINGS and PLUGIN_SETTINGS["gitrepositories"]:

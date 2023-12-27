@@ -1,6 +1,6 @@
 # Compatibility Matrix
 
-| Metrics & Monitoring Extension Plugin Version | Nautobot First Support Version | Nautobot Last Support Version |
+| Metrics & Monitoring Extension App Version | Nautobot First Support Version | Nautobot Last Support Version |
 | ------------- | -------------------- | -------------- |
 | 1.0.X         | 1.0.0                | 1.99.99        |
 | 1.1.X         | 1.0.0                | 1.99.99        |
