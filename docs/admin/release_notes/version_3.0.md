@@ -6,13 +6,13 @@ This document describes all new features and changes in the release `3.0`. The f
 
 - Major features or milestones
 - Achieved in this `x.y` release
-- Changes to compatibility with Nautobot and/or other plugins, libraries etc.
+- Changes to compatibility with Nautobot and/or other apps, libraries etc.
 
 ## [v3.0.1] - 2023-09-29
 
 ### Fixed
 
-- [#65](https://github.com/nautobot/nautobot-plugin-capacity-metrics/issues/65) Fixes incorrect self-reporting of version number
+- [#65](https://github.com/nautobot/nautobot-app-capacity-metrics/issues/65) Fixes incorrect self-reporting of version number
 
 ## [v3.0.0] - 2023-09-29
 

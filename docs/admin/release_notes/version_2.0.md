@@ -6,9 +6,9 @@ This document describes all new features and changes in the release `2.0`. The f
 
 ### Changed
 
-- [#27](https://github.com/nautobot/nautobot-plugin-capacity-metrics/pull/27) Migrated to GitHub Actions from Travis-CI
-- [#30](https://github.com/nautobot/nautobot-plugin-capacity-metrics/pull/30) Updates to mkdocs version from 1.1.2 to 1.3.0
+- [#27](https://github.com/nautobot/nautobot-app-capacity-metrics/pull/27) Migrated to GitHub Actions from Travis-CI
+- [#30](https://github.com/nautobot/nautobot-app-capacity-metrics/pull/30) Updates to mkdocs version from 1.1.2 to 1.3.0
 
 ### Removed
 
-- [#29](https://github.com/nautobot/nautobot-plugin-capacity-metrics/pull/29) Removed `nautobot_job_task_stats` metric
+- [#29](https://github.com/nautobot/nautobot-app-capacity-metrics/pull/29) Removed `nautobot_job_task_stats` metric

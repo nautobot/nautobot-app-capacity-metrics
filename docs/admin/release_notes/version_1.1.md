@@ -6,4 +6,4 @@ This document describes all new features and changes in the release `1.1`. The f
 
 ### Added
 
-- [#24](https://github.com/nautobot/nautobot-plugin-capacity-metrics/pull/24) Added support for GitRepository sync metrics.
+- [#24](https://github.com/nautobot/nautobot-app-capacity-metrics/pull/24) Added support for GitRepository sync metrics.

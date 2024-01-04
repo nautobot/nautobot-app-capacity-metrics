@@ -13,7 +13,7 @@ on: # yamllint disable-line rule:truthy rule:comments
   pull_request: ~
 
 env:
-  PLUGIN_NAME: "nautobot-plugin-capacity-metrics"
+  PLUGIN_NAME: "nautobot-app-capacity-metrics"
 
 jobs:
   black:
