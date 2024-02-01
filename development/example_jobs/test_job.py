@@ -12,6 +12,7 @@ class TestJob(Job):
     fail = BooleanVar(description="Whether this job should fail.")
 
     def run(self, sleep, fail):
+        """Run the job."""
         self.logger.warning(f"Sleeping {sleep} seconds.")
         time.sleep(sleep)
         if fail:

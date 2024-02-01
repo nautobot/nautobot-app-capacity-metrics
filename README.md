@@ -1,20 +1,10 @@
 # Metrics & Monitoring Extension App
 
-<!--
-Developer Note - Remove Me!
-
-The README will have certain links/images broken until the PR is merged into `develop`. Update the GitHub links with whichever branch you're using (main etc.) if different.
-
-The logo of the project is a placeholder (docs/images/icon-nautobot-capacity-metrics.png) - please replace it with your app icon, making sure it's at least 200x200px and has a transparent background!
-
-To avoid extra work and temporary links, make sure that publishing docs (or merging a PR) is done at the same time as setting up the docs site on RTD, then test everything.
--->
-
 <p align="center">
-  <img src="https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/icon-nautobot-capacity-metrics.png" class="logo" height="200px">
+  <img src="https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/icon-nautobot-capacity-metrics.svg" class="logo" height="200px">
   <br>
   <a href="https://github.com/nautobot/nautobot-app-capacity-metrics/actions"><img src="https://github.com/nautobot/nautobot-app-capacity-metrics/actions/workflows/ci.yml/badge.svg?branch=main"></a>
-  <a href="https://docs.nautobot.com/projects/capacity-metrics/en/latest"><img src="https://readthedocs.org/projects/nautobot-app-capacity-metrics/badge/"></a>
+  <a href="https://docs.nautobot.com/projects/capacity-metrics/en/latest/"><img src="https://readthedocs.org/projects/nautobot-plugin-capacity-metrics/badge/"></a>
   <a href="https://pypi.org/project/nautobot-capacity-metrics/"><img src="https://img.shields.io/pypi/v/nautobot-capacity-metrics"></a>
   <a href="https://pypi.org/project/nautobot-capacity-metrics/"><img src="https://img.shields.io/pypi/dm/nautobot-capacity-metrics"></a>
   <br>
@@ -30,11 +20,10 @@ Nautobot already exposes some information via a Prometheus endpoint but the info
 
 Currently the app exposes these simple metrics by default:
 
-> Developer Note: Place the files in the `docs/images/` folder and link them using only full URLs from GitHub, for example: `![Overview](https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/app-overview.png)`. This absolute static linking is required to ensure the README renders properly in GitHub, the docs site, and any other external sites like PyPI.
+- Jobs stats
+- Models count (configurable via nautobot_config.py)
 
-More screenshots can be found in the [Using the App](https://docs.nautobot.com/projects/capacity-metrics/en/latest/user/app_use_cases/) page in the documentation. Here's a quick overview of some of the app's added functionality:
-
-![](https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/placeholder.png)
+In addition, it is possible to use the app configuration to expose metrics about the versions of Python, Django, Nautobot and the installed Nautobot apps/apps.
 
 ## Try it out!
 

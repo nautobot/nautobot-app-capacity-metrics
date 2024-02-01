@@ -85,13 +85,15 @@ sudo systemctl restart nautobot nautobot-worker nautobot-scheduler
 
 ## App Configuration
 
-!!! warning "Developer Note - Remove Me!"
-    Any configuration required to get the App set up. Edit the table below as per the examples provided.
-
 The app behavior can be controlled with the following list of settings:
 
 | Key     | Example | Default | Description                          |
 | ------- | ------ | -------- | ------------------------------------- |
-| `enable_backup` | `True` | `True` | A boolean to represent whether or not to run backup configurations within the app. |
-| `platform_slug_map` | `{"cisco_wlc": "cisco_aireos"}` | `None` | A dictionary in which the key is the platform slug and the value is what netutils uses in any "network_os" parameter. |
-| `per_feature_bar_width` | `0.15` | `0.15` | The width of the table bar within the overview report |
+| `app_metrics` | `{"models": {"dcim": "Device": True}}` | `{"models": {"dcim": {"Site": True, "Rack": True, "Device": True}, "ipam": {"IPAddress": True, "Prefix": True}}, "jobs": True, "queues": True, "versions": {"basic": False, "plugins": False}` | Specifies which metrics to publish for each app. |
+
+
+## Included Grafana Dashboard
+
+Included within this app is a Grafana dashboard which will work with the example configuration above. To install this dashboard import the JSON from [Grafana Dashboard](https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/nautobot_grafana_dashboard.json) into Grafana.
+
+![Nautobot Grafana Dashboard](https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/nautobot_grafana_dashboard.png)

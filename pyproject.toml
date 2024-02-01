@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "nautobot-capacity-metrics"
-version = "0.1.0"
+version = "3.0.0"
 description = "App to improve the instrumentation of Nautobot and expose additional metrics (Application Metrics, RQ Worker)."
 authors = ["Network to Code, LLC <opensource@networktocode.com>"]
 license = "Apache-2.0"
@@ -145,6 +145,9 @@ convention = "google"
     "D",  # pydocstyle
 ]
 "nautobot_capacity_metrics/tests/*" = [
+    "D",  # pydocstyle
+]
+"nautobot_capacity_metrics/test_models/migrations/*" = [
     "D",  # pydocstyle
 ]
 
