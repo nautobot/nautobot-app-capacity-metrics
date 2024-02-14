@@ -3,9 +3,9 @@
 from importlib import metadata
 from typing import Callable
 
-__version__ = metadata.version(__name__)
-
 from nautobot.apps import NautobotAppConfig
+
+__version__ = metadata.version(__name__)
 
 # Registry of functions that can generate additional application metrics
 # All functions in the registry should take no argument and return an Iterator (or list) of prometheus Metric Object
