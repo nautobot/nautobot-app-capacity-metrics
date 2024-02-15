@@ -43,9 +43,9 @@ class NautobotCapacityMetricsConfig(NautobotAppConfig):
         "app_metrics": {
             "models": {
                 "dcim": {
-                    "Site": True,
-                    "Rack": True,
-                    "Device": True,
+                    "Location": ["status__name", "parent__name"],
+                    "Rack": ["location__name", "location__parent__name"],
+                    "Device": ["location__parent__name", "device_type__manufacturer__name"],
                 },
                 "ipam": {"IPAddress": True, "Prefix": True},
             },
