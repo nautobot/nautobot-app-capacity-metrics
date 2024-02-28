@@ -1,0 +1,91 @@
+{
+    "type": "object",
+    "properties": {
+        "app_metrics": {
+            "type": "object",
+            "properties": {
+                "models": {
+                    "type": "object",
+                    "properties": {
+                        "dcim": {
+                            "type": "object",
+                            "properties":{
+                                "Site": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "Rack": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "Device": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "Interface": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "Cable": {
+                                    "type": "boolean",
+                                    "default": true
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "ipam": {
+                            "type": "object",
+                            "properties": {
+                                "IPAddress": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "Prefix": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "VLAN": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "circuits": {
+                            "type": "object",
+                            "properties": {
+                                "Circuit": {
+                                    "type": "boolean"
+                                },
+                                "Provider": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "jobs": {
+                    "type": "boolean"
+                },
+                "queues": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "versions": {
+                    "type": "object",
+                    "properties": {
+                        "basic": {
+                            "type": "boolean"
+                        },
+                        "plugins": {
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            }
+        }
+    },
+    "additionalProperties": false
+}
