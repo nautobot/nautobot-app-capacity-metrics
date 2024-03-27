@@ -14,6 +14,7 @@ class AppMetricEndpointTests(TestCase):
     app_metric_url = reverse("plugins-api:nautobot_capacity_metrics-api:nautobot_capacity_metrics_app_view")
 
     def query_and_parse_metrics(self):
+        """Query and Parse the metrics data."""
         response = self.client.get(self.app_metric_url)
         self.assertHttpStatus(
             response, 200, msg="/api/plugins/capacity-metrics/app-metrics should return a 200 HTTP status code."
