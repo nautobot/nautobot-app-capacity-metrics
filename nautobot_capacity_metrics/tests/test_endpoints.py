@@ -4,7 +4,6 @@ from django.test import RequestFactory
 from django.urls import reverse
 from nautobot.core.testing import TestCase
 from nautobot.core.testing.api import APITestCase
-from prometheus_client.parser import text_string_to_metric_families
 
 from nautobot_capacity_metrics.api.views import AppMetricsView
 
