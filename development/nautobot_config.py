@@ -1,4 +1,5 @@
 """Nautobot development configuration file."""
+
 import os
 import sys
 
@@ -140,7 +141,7 @@ PLUGINS_CONFIG = {
             "jobs": True,
             "models": {
                 "dcim": {
-                    "Site": True,
+                    "Location": True,
                     "Rack": True,
                     "Device": True,
                     "Interface": True,

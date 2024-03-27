@@ -1,4 +1,5 @@
 """App declaration for nautobot_capacity_metrics."""
+
 # Metadata is inherited from Nautobot. If not including Nautobot in the environment, this should be added
 from importlib import metadata
 from typing import Callable
@@ -43,7 +44,7 @@ class NautobotCapacityMetricsConfig(NautobotAppConfig):
         "app_metrics": {
             "models": {
                 "dcim": {
-                    "Site": True,
+                    "Location": True,
                     "Rack": True,
                     "Device": True,
                 },
