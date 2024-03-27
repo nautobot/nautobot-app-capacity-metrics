@@ -10,6 +10,10 @@ Here you will find detailed instructions on how to **install** and **configure**
 !!! note
     Please check the [dedicated page](compatibility_matrix.md) for a full compatibility matrix and the deprecation policy.
 
+## App Security
+
+The Capacity Metrics App will use the `METRICS_AUTHENTICATED` setting from Nautobot Core if set to `True` to require authentication to reach the URL endpoint. The `METRICS_AUTHENTICATED` setting was added in Nautobot 2.1.5. See [Nautobot Core Optional Settings](https://docs.nautobot.com/projects/core/en/stable/user-guide/administration/configuration/optional-settings/#metrics_authenticated) for further configuration details. If not set or set to `False`, the URL endpoint will work as it currently does without authentication.
+
 ## Install Guide
 
 !!! note
@@ -90,7 +94,6 @@ The app behavior can be controlled with the following list of settings:
 | Key     | Example | Default | Description                          |
 | ------- | ------ | -------- | ------------------------------------- |
 | `app_metrics` | `{"models": {"dcim": "Device": True}}` | `{"models": {"dcim": {"Site": True, "Rack": True, "Device": True}, "ipam": {"IPAddress": True, "Prefix": True}}, "jobs": True, "queues": True, "versions": {"basic": False, "plugins": False}` | Specifies which metrics to publish for each app. |
-
 
 ## Included Grafana Dashboard
 

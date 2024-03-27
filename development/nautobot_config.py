@@ -1,4 +1,5 @@
 """Nautobot development configuration file."""
+
 import os
 import sys
 
@@ -158,3 +159,6 @@ PLUGINS_CONFIG = {
         }
     },
 }
+
+
+METRICS_AUTHENTICATED = True
