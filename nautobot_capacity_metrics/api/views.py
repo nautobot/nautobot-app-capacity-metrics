@@ -1,11 +1,11 @@
 """Django views for Prometheus metric collection and reporting."""  # pylint:  disable=too-few-public-methods
-import time
-import logging
 
-from django.conf import settings
-from django.http import HttpResponse
+import logging
+import time
 
 import prometheus_client
+from django.conf import settings
+from django.http import HttpResponse
 from prometheus_client.core import CollectorRegistry, GaugeMetricFamily
 
 from nautobot_capacity_metrics import __REGISTRY__

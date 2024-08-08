@@ -1,8 +1,9 @@
 """This script contains an example of a job about users."""
+
 import time
 
 from nautobot.core.celery import register_jobs
-from nautobot.extras.jobs import Job, BooleanVar, IntegerVar
+from nautobot.extras.jobs import BooleanVar, IntegerVar, Job
 
 
 class TestJob(Job):
@@ -17,7 +18,6 @@ class TestJob(Job):
         time.sleep(sleep)
         if fail:
             raise ValueError("I am supposed to fail!")
-        return
 
 
 register_jobs(TestJob)

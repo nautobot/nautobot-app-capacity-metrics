@@ -1,18 +1,16 @@
 """Metrics libraries for the nautobot_capacity_metrics app."""
-import logging
+
 import importlib
+import logging
 import platform
 from collections.abc import Iterable
 from copy import deepcopy
 
 import django
-from packaging import version
 from django.conf import settings
-
-from prometheus_client.core import Metric, GaugeMetricFamily
-
 from nautobot.extras.choices import JobResultStatusChoices
-
+from packaging import version
+from prometheus_client.core import GaugeMetricFamily, Metric
 
 logger = logging.getLogger(__name__)
 
