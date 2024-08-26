@@ -1,6 +1,6 @@
 ---
 dev_addr: "127.0.0.1:8001"
-edit_uri: "edit/main/nautobot-app-capacity-metrics/docs"
+edit_uri: "edit/main/docs"
 site_dir: "nautobot_capacity_metrics/static/nautobot_capacity_metrics/docs"
 site_name: "Metrics & Monitoring Extension App Documentation"
 site_url: "https://docs.nautobot.com/projects/capacity-metrics/en/latest/"
