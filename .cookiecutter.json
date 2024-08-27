@@ -26,7 +26,7 @@
             "branch_prefix": "drift-manager",
             "pull_request_strategy": "create",
             "post_actions": [
-                "black"
+                "ruff"
             ],
             "draft": true,
             "baked_commit_ref": "79fbb3f103b554c2f37dfd3a4f463c1936b0ff6c"
