@@ -160,3 +160,9 @@ PLUGINS_CONFIG = {
         }
     },
 }
+
+# Per https://github.com/nautobot/nautobot-app-capacity-metrics/issues/23, disable these metrics as MySQL does not support
+# args on DISTINCT.
+if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
+    PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]["gitrepositories"] = False
+    PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]["jobs"] = False
