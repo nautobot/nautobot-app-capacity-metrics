@@ -6,7 +6,7 @@ This document describes all new features and changes in the release `3.1`. The f
 
 ### Added
 
-- [#98](https://github.com/nautobot/nautobot-app-capacity-metrics/issues/98) - Python 3.12 support
+- [#98](https://github.com/nautobot/nautobot-app-capacity-metrics/issues/98) - Added support for Python 3.12.
 
 ### Changed
 
