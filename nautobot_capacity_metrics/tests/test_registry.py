@@ -1,6 +1,8 @@
 """Test cases for nautobot_capacity_metrics app metric function registry."""
+
 from django.test import TestCase
-from nautobot_capacity_metrics import register_metric_func, __REGISTRY__
+
+from nautobot_capacity_metrics import __REGISTRY__, register_metric_func
 
 
 class RegistryTests(TestCase):
@@ -13,7 +15,7 @@ class RegistryTests(TestCase):
             """Dummy metric function."""
 
         self.assertRaises(TypeError, register_metric_func, "test")
-        self.assertRaises(TypeError, register_metric_func, dict(test="test"))
+        self.assertRaises(TypeError, register_metric_func, {"test": "test"})
         self.assertRaises(TypeError, register_metric_func, [1, 2, 3])
 
         register_metric_func(myfunction)

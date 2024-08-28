@@ -1,17 +1,16 @@
-"""Metrics libraries for the nautobot_capacity_metrics plugin."""
-import logging
+"""Metrics libraries for the nautobot_capacity_metrics app."""
+
 import importlib
+import logging
 import platform
 from collections.abc import Iterable
+from copy import deepcopy
 
 import django
-from packaging import version
 from django.conf import settings
-
-from prometheus_client.core import Metric, GaugeMetricFamily
-
 from nautobot.extras.choices import JobResultStatusChoices
-
+from packaging import version
+from prometheus_client.core import GaugeMetricFamily, Metric
 
 logger = logging.getLogger(__name__)
 
@@ -88,10 +87,12 @@ def metric_models(params):
             nautobot_model_count: with model name and application name as labels
     """
     gauge = GaugeMetricFamily("nautobot_model_count", "Per Nautobot Model count", labels=["app", "name"])
-    for app, _ in params.items():
-        for model, _ in params[app].items():
+    for app in params:
+        app_config = deepcopy(params[app])  # Avoid changing the dictionary we are iterating over
+        module = app_config.pop("_module", "nautobot")
+        for model in app_config:
             try:
-                models = importlib.import_module(f"nautobot.{app}.models")
+                models = importlib.import_module(f"{module}.{app}.models")
                 model_class = getattr(models, model)
                 gauge.add_metric([app, model], model_class.objects.count())
             except ModuleNotFoundError:

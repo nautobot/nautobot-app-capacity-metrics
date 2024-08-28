@@ -3,10 +3,14 @@ development/Dockerfile
 development/docker-compose*.yml
 development/*.env
 *.env
+environments/
 
 # Python
 **/*.pyc
 **/*.pyo
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/
 
 
 # Other
@@ -15,6 +19,8 @@ FAQ.md
 .git/
 .gitignore
 .github
-tasks.py
 LICENSE
 **/*.log
+**/.vscode/
+invoke*.yml
+tasks.py

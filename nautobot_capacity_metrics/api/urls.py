@@ -1,10 +1,8 @@
-"""Django URL patterns for nautobot_capacity_metrics plugin."""
+"""Django URL patterns for nautobot_capacity_metrics app."""
 
-from django.conf import settings
 from django.urls import path
-from . import views
 
-PLUGIN_SETTINGS = settings.PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]
+from . import views
 
 urlpatterns = [
     path("app-metrics", views.AppMetricsView, name="nautobot_capacity_metrics_app_view"),
