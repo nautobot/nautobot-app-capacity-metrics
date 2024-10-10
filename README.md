@@ -4,7 +4,7 @@
   <img src="https://raw.githubusercontent.com/nautobot/nautobot-app-capacity-metrics/develop/docs/images/icon-nautobot-capacity-metrics.svg" class="logo" height="200px">
   <br>
   <a href="https://github.com/nautobot/nautobot-app-capacity-metrics/actions"><img src="https://github.com/nautobot/nautobot-app-capacity-metrics/actions/workflows/ci.yml/badge.svg?branch=main"></a>
-  <a href="https://docs.nautobot.com/projects/capacity-metrics/en/latest/"><img src="https://readthedocs.org/projects/nautobot-app-capacity-metrics/badge/"></a>
+  <a href="https://docs.nautobot.com/projects/capacity-metrics/en/latest/"><img src="https://readthedocs.org/projects/nautobot-plugin-capacity-metrics/badge/"></a>
   <a href="https://pypi.org/project/nautobot-capacity-metrics/"><img src="https://img.shields.io/pypi/v/nautobot-capacity-metrics"></a>
   <a href="https://pypi.org/project/nautobot-capacity-metrics/"><img src="https://img.shields.io/pypi/dm/nautobot-capacity-metrics"></a>
   <br>
