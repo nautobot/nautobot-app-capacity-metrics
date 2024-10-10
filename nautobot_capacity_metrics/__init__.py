@@ -59,6 +59,7 @@ class NautobotCapacityMetricsConfig(NautobotAppConfig):
         }
     }
     caching_config = {}
+    docs_view_name = "plugins:nautobot_capacity_metrics:docs"
 
 
 config = NautobotCapacityMetricsConfig  # pylint:disable=invalid-name
