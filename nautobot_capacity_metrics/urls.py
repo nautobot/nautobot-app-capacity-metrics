@@ -10,6 +10,7 @@ from nautobot.apps.urls import NautobotUIViewSetRouter
 # from nautobot_capacity_metrics import views
 
 
+app_name = "nautobot_capacity_metrics"
 router = NautobotUIViewSetRouter()
 
 # Here is an example of how to register a viewset, you will want to replace views.NautobotCapacityMetricsUIViewSet with your viewset
