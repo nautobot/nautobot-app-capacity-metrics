@@ -21,8 +21,8 @@ class TestConfig(NautobotAppConfig):
     description = "App that exists solely to test nautobot_capacity_metrics, don't install.."
     base_url = "capacity-metrics-test"
     required_settings = []
-    min_version = "2.0.0"
-    max_version = "2.9999"
+    min_version = "3.0.0a1"  # TODO: Update to 3.0.0 when Nautobot v3.0.0 is released
+    max_version = "3.9999"
     default_settings = {}
     caching_config = {}
 
