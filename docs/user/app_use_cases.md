@@ -103,6 +103,7 @@ In the future it will be possible to add metrics by adding them in a predefined 
 ## App Configuration Parameters
 
 The behavior of the app_metrics feature can be controlled with the following list of settings (under `nautobot_capacity_metrics > app_metrics`):
+
 - `gitrepositories` boolean (default **False**), publish stats about the gitrepositories (success, warning, info, failure)
 - `jobs` boolean (default **False**), publish stats about the jobs (success, warning, info, failure)
 - `queues` boolean (default **False**), publish stats about Worker (nbr of worker, nbr and type of job in the different queues)
