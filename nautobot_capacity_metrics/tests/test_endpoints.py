@@ -2,6 +2,7 @@
 
 from django.test import TestCase
 from django.urls import reverse
+from nautobot.extras.models import Tag
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -19,6 +20,9 @@ class AppMetricEndpointTests(TestCase):
 
     def test_model_count_metrics(self):
         """Ensure that the model count metrics work correctly."""
+
+        Tag.objects.create(name="cap-metrics")
+
         resp = self.client.get(self.app_metric_url)
-        if "TestModel" not in resp.content.decode("utf-8"):
-            self.fail("nautobot_capacity_metrics.test_models.models.TestModel does not report its count.")
+        if "Tag" not in resp.content.decode("utf-8"):
+            self.fail("extras.Tag does not report its count.")
