@@ -157,3 +157,6 @@ PLUGINS_CONFIG = {
 if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
     PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]["gitrepositories"] = False
     PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]["jobs"] = False
+
+if "nautobot_capacity_metrics_test_models.test_models.apps.TestModelsConfig" not in INSTALLED_APPS:  # noqa: F405
+    INSTALLED_APPS.append("nautobot_capacity_metrics_test_models.test_models.apps.TestModelsConfig")  # noqa: F405
