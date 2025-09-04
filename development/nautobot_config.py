@@ -122,6 +122,7 @@ if not _TESTING:
 # Enable installed Apps. Add the name of each App to the list.
 PLUGINS = [
     "nautobot_capacity_metrics",
+    "nautobot_capacity_metrics.test_models",
 ]
 
 # Apps configuration settings. These settings are used by various Apps that the user may have installed.
@@ -140,7 +141,8 @@ PLUGINS_CONFIG = {
                     "Cable": True,
                 },
                 "ipam": {"IPAddress": True, "Prefix": True},
-                "extras": {"GitRepository": True, "Tag": True},
+                "extras": {"GitRepository": True},
+                "test_models": {"_module": "nautobot_capacity_metrics", "TestModel": True},
             },
             "queues": True,
             "versions": {
