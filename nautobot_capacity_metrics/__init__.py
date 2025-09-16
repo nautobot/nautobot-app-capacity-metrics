@@ -18,11 +18,10 @@ class NautobotCapacityMetricsConfig(NautobotAppConfig):
     description = "App to improve the instrumentation of Nautobot and expose additional metrics (Application Metrics, RQ Worker).."
     base_url = "capacity-metrics"
     required_settings = []
-    min_version = "2.0.0"
-    max_version = "2.9999"
     default_settings = {}
     caching_config = {}
     docs_view_name = "plugins:nautobot_capacity_metrics:docs"
+    searchable_models = []
 
 
 config = NautobotCapacityMetricsConfig  # pylint:disable=invalid-name
