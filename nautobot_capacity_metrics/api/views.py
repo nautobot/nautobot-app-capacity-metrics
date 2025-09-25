@@ -28,32 +28,26 @@ class AppMetricsCollector:
         start = time.time()
 
         if "gitrepositories" in PLUGIN_SETTINGS and PLUGIN_SETTINGS["gitrepositories"]:
-            for metric in metric_jobs(type_of_job="git_repository"):
-                yield metric
+            yield from metric_jobs(type_of_job="git_repository")
 
         if "jobs" in PLUGIN_SETTINGS and PLUGIN_SETTINGS["jobs"]:
-            for metric in metric_jobs(type_of_job="job"):
-                yield metric
+            yield from metric_jobs(type_of_job="job")
 
         if "models" in PLUGIN_SETTINGS:
-            for metric in metric_models(PLUGIN_SETTINGS["models"]):
-                yield metric
+            yield from metric_models(PLUGIN_SETTINGS["models"])
 
         if "versions" in PLUGIN_SETTINGS and (
             PLUGIN_SETTINGS["versions"]["basic"] or PLUGIN_SETTINGS["versions"]["plugins"]
         ):
-            for metric in metric_versions():
-                yield metric
+            yield from metric_versions()
 
         # --------------------------------------------------------------
         # Extras Function defined in configuration.py or the Regristry
         # # --------------------------------------------------------------
         if "extras" in PLUGIN_SETTINGS:
-            for metric in collect_extras_metric(PLUGIN_SETTINGS["extras"]):
-                yield metric
+            yield from collect_extras_metric(PLUGIN_SETTINGS["extras"])
 
-        for metric in collect_extras_metric(__REGISTRY__):
-            yield metric
+        yield from collect_extras_metric(__REGISTRY__)
 
         gauge = GaugeMetricFamily(
             "nautobot_app_metrics_processing_ms", "Time in ms to generate the app metrics endpoint"
