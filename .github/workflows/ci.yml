@@ -152,7 +152,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.9", "3.12"]
+        python-version: ["3.12"]
         db-backend: ["postgresql"]
         nautobot-version: ["next"]  # TODO: Change to stable after v3.0.0 is released
         include:
@@ -227,7 +227,6 @@ jobs:
       - name: "Constrain Nautobot version and regenerate lock file"
         env:
           INVOKE_NAUTOBOT_CAPACITY_METRICS_LOCAL: "true"
-          PY_CONSTRAINT: "${{ matrix.python-version == '3.9' && '3.9.2' || matrix.python-version }}"
         run: "poetry run invoke lock --constrain-nautobot-ver --constrain-python-ver=${{ env.PY_CONSTRAINT }}"
       - name: "Set up Docker Buildx"
         id: "buildx"

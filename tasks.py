@@ -252,7 +252,7 @@ def _get_docker_nautobot_version(context, nautobot_ver=None, python_ver=None):
         ),
         "constrain_python_ver": (
             "Target Python version to constrain resolution. Accepts X.Y or X.Y.Z. "
-            "Example: --constrain-python-ver=3.9.3 "
+            "Example: --constrain-python-ver=3.10.3 "
             "This helps avoid poetry complaints about Python incompatibilities. "
             "Generally intended to be used in CI and not for local development. (default: disabled)"
         ),
