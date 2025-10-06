@@ -122,7 +122,6 @@ if not _TESTING:
 # Enable installed Apps. Add the name of each App to the list.
 PLUGINS = [
     "nautobot_capacity_metrics",
-    "nautobot_capacity_metrics.test_models",
 ]
 
 # Apps configuration settings. These settings are used by various Apps that the user may have installed.
@@ -142,7 +141,7 @@ PLUGINS_CONFIG = {
                 },
                 "ipam": {"IPAddress": True, "Prefix": True},
                 "extras": {"GitRepository": True},
-                "test_models": {"_module": "nautobot_capacity_metrics", "TestModel": True},
+                "test_models": {"_module": "nautobot_capacity_metrics_test_models", "TestModel": True},
             },
             "queues": True,
             "versions": {
@@ -158,3 +157,6 @@ PLUGINS_CONFIG = {
 if DATABASES["default"]["ENGINE"] == "django.db.backends.mysql":
     PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]["gitrepositories"] = False
     PLUGINS_CONFIG["nautobot_capacity_metrics"]["app_metrics"]["jobs"] = False
+
+if "nautobot_capacity_metrics_test_models.test_models.apps.TestModelsConfig" not in INSTALLED_APPS:  # noqa: F405
+    INSTALLED_APPS.append("nautobot_capacity_metrics_test_models.test_models.apps.TestModelsConfig")  # noqa: F405
