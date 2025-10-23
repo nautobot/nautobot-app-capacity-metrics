@@ -19,7 +19,6 @@ class NautobotCapacityMetricsConfig(NautobotAppConfig):
     base_url = "capacity-metrics"
     required_settings = []
     default_settings = {}
-    caching_config = {}
     docs_view_name = "plugins:nautobot_capacity_metrics:docs"
     searchable_models = []
 
