@@ -56,7 +56,6 @@ class NautobotCapacityMetricsConfig(NautobotAppConfig):
             },
         }
     }
-    caching_config = {}
     docs_view_name = "plugins:nautobot_capacity_metrics:docs"
     searchable_models = []
 
