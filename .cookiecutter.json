@@ -25,11 +25,7 @@
             "pull_request_strategy": "update-or-create",
             "post_actions": [],
             "draft": false,
-<<<<<<< HEAD
-            "baked_commit_ref": "d923774c49ad69f6572254e32a86d43fa1659301"
-=======
             "baked_commit_ref": "7f756d30f9c36656a755424929930db3feb1644d"
->>>>>>> 526b5ed (Cookie updated by NetworkToCode Cookie Drift Manager Tool)
         }
     }
 }
