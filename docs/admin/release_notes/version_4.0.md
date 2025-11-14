@@ -4,7 +4,7 @@ This document describes all new features and changes in the release. The format 
 
 ## Release Overview
 
-This major release marks the compatibility of the App with Nautobot 3.0.0. Check out the [full details](https://docs.nautobot.com/projects/core/en/stable/release-notes/version-3.0/) of the changes included in this new major release of Nautobot. Highlights:
+This major release marks the compatibility of the Capacity Metrics App with Nautobot 3.0.0. Check out the [full details](https://docs.nautobot.com/projects/core/en/stable/release-notes/version-3.0/) of the changes included in this new major release of Nautobot. Highlights:
 
 - Minimum Nautobot version supported is 3.0.
 - Added support for Python 3.13 and removed support for 3.9.
@@ -16,7 +16,8 @@ We will continue to support the previous major release for users of Nautobot LTM
 
 ### Changed
 
-- Changed minimum supported Nautobot version to 3.0.0.
+- Minimum Nautobot version supported is 3.0.
+- Added support for Python 3.13 and removed support for 3.9.
 
 ## [v4.0.0a1 (2025-10-31)](https://github.com/nautobot/nautobot-app-capacity-metrics/releases/tag/v4.0.0a1)
 
