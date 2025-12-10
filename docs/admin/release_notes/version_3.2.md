@@ -8,7 +8,7 @@ This document describes all new features and changes in the release. The format 
 - Dropped support for Python versions 3.8 and 3.9.
 
 <!-- towncrier release notes start -->
-## [v3.2.0 (2025-12-05)](https://github.com/nautobot/nautobot-app-capacity-metrics/releases/tag/v3.2.0)
+## [v3.2.0 (2025-12-10)](https://github.com/nautobot/nautobot-app-capacity-metrics/releases/tag/v3.2.0)
 
 ### Dependencies
 
