@@ -14,11 +14,13 @@ limitations under the License.
 
 import os
 import re
+import shutil
+import sys
 from pathlib import Path
 from time import sleep
 
 from invoke.collection import Collection
-from invoke.exceptions import Exit
+from invoke.exceptions import Exit, UnexpectedExit
 from invoke.tasks import task as invoke_task
 
 
@@ -50,9 +52,9 @@ namespace = Collection("nautobot_capacity_metrics")
 namespace.configure(
     {
         "nautobot_capacity_metrics": {
-            "nautobot_ver": "2.3.1",
+            "nautobot_ver": "next",  # TODO: Change to 3.0.0 after v3.0.0 is released
             "project_name": "nautobot-capacity-metrics",
-            "python_ver": "3.11",
+            "python_ver": "3.12",
             "local": False,
             "compose_dir": os.path.join(os.path.dirname(__file__), "development"),
             "compose_files": [
@@ -117,6 +119,7 @@ def docker_compose(context, command, **kwargs):
         command (str): Command string to append to the "docker compose ..." command, such as "build", "up", etc.
         **kwargs: Passed through to the context.run() call.
     """
+    _ensure_creds_env_file(context)
     build_env = {
         # Note: 'docker compose logs' will stop following after 60 seconds by default,
         # so we are overriding that by setting this environment variable.
@@ -148,7 +151,7 @@ def docker_compose(context, command, **kwargs):
     return context.run(compose_command, env=build_env, **kwargs)
 
 
-def run_command(context, command, **kwargs):
+def run_command(context, command, service="nautobot", **kwargs):
     """Wrapper to run a command locally or inside the nautobot container."""
     if is_truthy(context.nautobot_capacity_metrics.local):
         if "command_env" in kwargs:
@@ -156,9 +159,9 @@ def run_command(context, command, **kwargs):
                 **kwargs.get("env", {}),
                 **kwargs.pop("command_env"),
             }
-        context.run(command, **kwargs)
+        return context.run(command, **kwargs)
     else:
-        # Check if nautobot is running, no need to start another nautobot container to run a command
+        # Check if service is running, no need to start another container to run a command
         docker_compose_status = "ps --services --filter status=running"
         results = docker_compose(context, docker_compose_status, hide="out")
 
@@ -168,14 +171,14 @@ def run_command(context, command, **kwargs):
             for key, value in command_env.items():
                 command_env_args += f' --env="{key}={value}"'
 
-        if "nautobot" in results.stdout:
-            compose_command = f"exec{command_env_args} nautobot {command}"
+        if service in results.stdout:
+            compose_command = f"exec{command_env_args} {service} {command}"
         else:
-            compose_command = f"run{command_env_args} --rm --entrypoint='{command}' nautobot"
+            compose_command = f"run{command_env_args} --rm --entrypoint='{command}' {service}"
 
         pty = kwargs.pop("pty", True)
 
-        docker_compose(context, compose_command, pty=pty, **kwargs)
+        return docker_compose(context, compose_command, pty=pty, **kwargs)
 
 
 # ------------------------------------------------------------------------------
@@ -198,6 +201,18 @@ def build(context, force_rm=False, cache=True):
 
     print(f"Building Nautobot with Python {context.nautobot_capacity_metrics.python_ver}...")
     docker_compose(context, command)
+
+
+def _ensure_creds_env_file(context):
+    """Ensure that the development/creds.env file exists."""
+    if not os.path.exists(os.path.join(context.nautobot_capacity_metrics.compose_dir, "creds.env")):
+        # Warn the user that the creds.env file does not exist and that we are copying the example file to it
+        print("⚠️⚠️ The creds.env file does not exist, using the example file to create it. ⚠️⚠️")
+        # Copy the creds.example.env file to creds.env
+        shutil.copy(
+            os.path.join(context.nautobot_capacity_metrics.compose_dir, "creds.example.env"),
+            os.path.join(context.nautobot_capacity_metrics.compose_dir, "creds.env"),
+        )
 
 
 @task
@@ -236,22 +251,33 @@ def _get_docker_nautobot_version(context, nautobot_ver=None, python_ver=None):
             "Generally intended to be used in CI and not for local development. (default: disabled)"
         ),
         "constrain_python_ver": (
-            "When using `constrain_nautobot_ver`, further constrain the nautobot version "
-            "to python_ver so that poetry doesn't complain about python version incompatibilities. "
+            "Target Python version to constrain resolution. Accepts X.Y or X.Y.Z. "
+            "Example: --constrain-python-ver=3.10.3 "
+            "This helps avoid poetry complaints about Python incompatibilities. "
             "Generally intended to be used in CI and not for local development. (default: disabled)"
         ),
     }
 )
-def lock(context, check=False, constrain_nautobot_ver=False, constrain_python_ver=False):
-    """Generate poetry.lock file."""
+def lock(context, check=False, constrain_nautobot_ver=False, constrain_python_ver=""):
+    """Generate poetry.lock; optionally constrain Nautobot and/or Python (with patch)."""
     if constrain_nautobot_ver:
         docker_nautobot_version = _get_docker_nautobot_version(context)
         command = f"poetry add --lock nautobot@{docker_nautobot_version}"
         if constrain_python_ver:
-            command += f" --python {context.nautobot_capacity_metrics.python_ver}"
+            command += f" --python {constrain_python_ver}"
+        try:
+            output = run_command(context, command, hide=True)
+            print(output.stdout, end="")
+            print(output.stderr, file=sys.stderr, end="")
+        except UnexpectedExit:
+            print("Unable to add Nautobot dependency with version constraint, falling back to git branch.")
+            command = f"poetry add --lock git+https://github.com/nautobot/nautobot.git#{context.nautobot_capacity_metrics.nautobot_ver}"
+            if constrain_python_ver:
+                command += f" --python {constrain_python_ver}"
+            run_command(context, command)
     else:
-        command = f"poetry {'check' if check else 'lock --no-update'}"
-    run_command(context, command)
+        command = f"poetry {'check' if check else 'lock'}"
+        run_command(context, command)
 
 
 # ------------------------------------------------------------------------------
@@ -400,10 +426,14 @@ def shell_plus(context):
     run_command(context, command)
 
 
-@task
-def cli(context):
-    """Launch a bash shell inside the Nautobot container."""
-    run_command(context, "bash")
+@task(
+    help={
+        "service": "Docker compose service name to launch cli in (default: nautobot).",
+    }
+)
+def cli(context, service="nautobot"):
+    """Launch a bash shell inside the container."""
+    run_command(context, "bash", service=service)
 
 
 @task(
@@ -661,6 +691,17 @@ def build_and_check_docs(context):
     command = "mkdocs build --no-directory-urls --strict"
     run_command(context, command)
 
+    # Check for the existence of a release notes file for the current version if it's not a prerelease.
+    version = context.run("poetry version --short", hide=True)
+    match = re.match(r"^(\d+)\.(\d+)\.\d+$", version.stdout.strip())
+    if match:
+        major = match.group(1)
+        minor = match.group(2)
+        release_notes_file = Path(__file__).parent / "docs" / "admin" / "release_notes" / f"version_{major}.{minor}.md"
+        if not release_notes_file.exists():
+            print(f"Release notes file `version_{major}.{minor}.md` does not exist.")
+            raise Exit(code=1)
+
 
 @task(name="help")
 def help_task(context):
@@ -676,15 +717,26 @@ def help_task(context):
 
 @task(
     help={
-        "version": "Version of Metrics & Monitoring Extension App to generate the release notes for.",
+        "version": "Version of Nautobot Dev Example App to generate the release notes for.",
+        "date": "Date of the release (default: today).",
+        "keep": "Keep existing release notes files. Useful for testing. (default: False).",
     }
 )
-def generate_release_notes(context, version=""):
+def generate_release_notes(context, version="", date="", keep=False):
     """Generate Release Notes using Towncrier."""
-    command = "env DJANGO_SETTINGS_MODULE=nautobot.core.settings towncrier build"
-    if version:
-        command += f" --version {version}"
-    run_command(context, command)
+    command = "poetry run towncrier build"
+    if not version:
+        version = context.run("poetry version --short", hide=True).stdout.strip()
+    command += f" --version {version}"
+    if date:
+        command += f" --date {date}"
+    command += " --keep" if keep else " --yes"
+
+    version_major_minor = ".".join(version.split(".")[:2])
+    context.run(f"poetry run python development/bin/ensure_release_notes.py --version {version_major_minor}")
+
+    # Due to issues with git repo ownership in the containers, this must always run locally.
+    context.run(command)
 
 
 # ------------------------------------------------------------------------------
@@ -702,19 +754,40 @@ def hadolint(context):
 @task
 def pylint(context):
     """Run pylint code analysis."""
-    command = 'pylint --init-hook "import nautobot; nautobot.setup()" --rcfile pyproject.toml nautobot_capacity_metrics'
-    run_command(context, command)
+    exit_code = 0
+
+    base_pylint_command = 'pylint --verbose --init-hook "import nautobot; nautobot.setup()" --rcfile pyproject.toml'
+    command = f"{base_pylint_command} nautobot_capacity_metrics"
+    if not run_command(context, command, warn=True):
+        exit_code = 1
+
+    # run the pylint_django migrations checkers on the migrations directory, if one exists
+    migrations_dir = Path(__file__).absolute().parent / Path("nautobot_capacity_metrics") / Path("migrations")
+    if migrations_dir.is_dir():
+        migrations_pylint_command = (
+            f"{base_pylint_command} --load-plugins=pylint_django.checkers.migrations"
+            " --disable=all --enable=fatal,new-db-field-with-default,missing-backwards-migration-callable"
+            " nautobot_capacity_metrics.migrations"
+        )
+        if not run_command(context, migrations_pylint_command, warn=True):
+            exit_code = 1
+    else:
+        print("No migrations directory found, skipping migrations checks.")
+
+    if exit_code != 0:
+        raise Exit(code=exit_code)
 
 
 @task(aliases=("a",))
 def autoformat(context):
     """Run code autoformatting."""
     ruff(context, action=["format"], fix=True)
+    djhtml(context)
 
 
 @task(
     help={
-        "action": "Available values are `['lint', 'format']`. Can be used multiple times. (default: `['lint', 'format']`)",
+        "action": "Available values are `['lint', 'format']`. Can be used multiple times. (default: `--action lint --action format`)",
         "target": "File or directory to inspect, repeatable (default: all files in the project will be inspected)",
         "fix": "Automatically fix selected actions. May not be able to fix all issues found. (default: False)",
         "output_format": "See https://docs.astral.sh/ruff/settings/#output-format for details. (default: `concise`)",
@@ -728,12 +801,15 @@ def ruff(context, action=None, target=None, fix=False, output_format="concise"):
     if not target:
         target = ["."]
 
+    exit_code = 0
+
     if "format" in action:
         command = "ruff format "
         if not fix:
             command += "--check "
         command += " ".join(target)
-        run_command(context, command, warn=True)
+        if not run_command(context, command, warn=True):
+            exit_code = 1
 
     if "lint" in action:
         command = "ruff check "
@@ -741,7 +817,47 @@ def ruff(context, action=None, target=None, fix=False, output_format="concise"):
             command += "--fix "
         command += f"--output-format {output_format} "
         command += " ".join(target)
-        run_command(context, command, warn=True)
+        if not run_command(context, command, warn=True):
+            exit_code = 1
+
+    if exit_code != 0:
+        raise Exit(code=exit_code)
+
+
+@task(
+    help={
+        "target": "File or directory to inspect, repeatable (default: all files in the project will be inspected)",
+    },
+    iterable=["target"],
+)
+def djlint(context, target=None):
+    """Run djlint to lint Django templates."""
+    if not target:
+        target = ["."]
+
+    command = "djlint --lint "
+    command += " ".join(target)
+
+    exit_code = 0 if run_command(context, command, warn=True) else 1
+    if exit_code != 0:
+        raise Exit(code=exit_code)
+
+
+@task(
+    help={
+        "check": "Run djhtml in check mode.",
+    },
+)
+def djhtml(context, check=False):
+    """Run djhtml to format Django HTML templates."""
+    command = "djhtml -t 4 nautobot_capacity_metrics/templates/"
+
+    if check:
+        command += " --check"
+
+    exit_code = 0 if run_command(context, command, warn=True) else 1
+    if exit_code != 0:
+        raise Exit(code=exit_code)
 
 
 @task
@@ -752,6 +868,18 @@ def yamllint(context):
         context (obj): Used to run specific commands
     """
     command = "yamllint . --format standard"
+    run_command(context, command)
+
+
+@task
+def markdownlint(context, fix=False):
+    """Lint Markdown files."""
+    # note: at the time of this writing, the `--fix` option is in pending state for pymarkdown on both rules.
+    if fix:
+        command = "pymarkdown fix --recurse docs *.md"
+        run_command(context, command)
+    # fix mode doesn't scan/report issues it can't fix, so always run scan even after fixing
+    command = "pymarkdown scan --recurse docs *.md"
     run_command(context, command)
 
 
@@ -771,6 +899,8 @@ def check_migrations(context):
         "buffer": "Discard output from passing tests",
         "pattern": "Run specific test methods, classes, or modules instead of all tests",
         "verbose": "Enable verbose test output.",
+        "coverage": "Enable coverage reporting. Defaults to False",
+        "skip_docs_build": "Skip building the documentation before running tests.",
     }
 )
 def unittest(  # noqa: PLR0913
@@ -781,9 +911,16 @@ def unittest(  # noqa: PLR0913
     buffer=True,
     pattern="",
     verbose=False,
+    coverage=False,
+    skip_docs_build=False,
 ):
     """Run Nautobot unit tests."""
-    command = f"coverage run --module nautobot.core.cli test {label}"
+    if not skip_docs_build:
+        build_and_check_docs(context)
+    if coverage:
+        command = f"coverage run --module nautobot.core.cli test {label}"
+    else:
+        command = f"nautobot-server test {label}"
 
     if keepdb:
         command += " --keepdb"
@@ -801,8 +938,24 @@ def unittest(  # noqa: PLR0913
 
 @task
 def unittest_coverage(context):
-    """Report on code test coverage as measured by 'invoke unittest'."""
-    command = "coverage report --skip-covered --include 'nautobot_capacity_metrics/*' --omit *migrations*"
+    """Report on code test coverage as measured by 'invoke unittest --coverage'."""
+    command = "coverage report --skip-covered"
+
+    run_command(context, command)
+
+
+@task
+def coverage_lcov(context):
+    """Generate an LCOV coverage report."""
+    command = "coverage lcov -o lcov.info"
+
+    run_command(context, command)
+
+
+@task
+def coverage_xml(context):
+    """Generate an XML coverage report."""
+    command = "coverage xml -o coverage.xml"
 
     run_command(context, command)
 
@@ -823,8 +976,12 @@ def tests(context, failfast=False, keepdb=False, lint_only=False):
     # Sorted loosely from fastest to slowest
     print("Running ruff...")
     ruff(context)
+    print("Running djlint...")
+    djlint(context)
     print("Running yamllint...")
     yamllint(context)
+    print("Running markdownlint...")
+    markdownlint(context)
     print("Running poetry check...")
     lock(context, check=True)
     print("Running migrations check...")
@@ -837,8 +994,9 @@ def tests(context, failfast=False, keepdb=False, lint_only=False):
     validate_app_config(context)
     if not lint_only:
         print("Running unit tests...")
-        unittest(context, failfast=failfast, keepdb=keepdb)
+        unittest(context, failfast=failfast, keepdb=keepdb, coverage=True, skip_docs_build=True)
         unittest_coverage(context)
+        coverage_lcov(context)
     print("All tests have passed!")
 
 

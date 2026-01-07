@@ -38,8 +38,6 @@ class NautobotCapacityMetricsConfig(NautobotAppConfig):
     description = "Lightweight Nautobot App to expose additional metrics as Prometheus endpoints. Includes exposing Nautobot object data and metrics that can be collected and later viewed in Visualization tools."
     base_url = "capacity-metrics"
     required_settings = []
-    min_version = "2.0.0"
-    max_version = "2.9999"
     default_settings = {
         "app_metrics": {
             "models": {
@@ -58,7 +56,8 @@ class NautobotCapacityMetricsConfig(NautobotAppConfig):
             },
         }
     }
-    caching_config = {}
+    docs_view_name = "plugins:nautobot_capacity_metrics:docs"
+    searchable_models = []
 
 
 config = NautobotCapacityMetricsConfig  # pylint:disable=invalid-name

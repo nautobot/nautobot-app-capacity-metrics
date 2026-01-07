@@ -6,11 +6,12 @@
 # -------------------------------------------------------------------------------------
 # !!! USE CAUTION WHEN MODIFYING LINES BELOW
 
-# Accepts a desired Nautobot version as build argument, default to 2.0.0
-ARG NAUTOBOT_VER="2.0.0"
+# Accepts a desired Nautobot version as build argument, default to 3.0.0
+# TODO: Change to 3.0.0 after v3.0.0 is released
+ARG NAUTOBOT_VER="next"
 
-# Accepts a desired Python version as build argument, default to 3.11
-ARG PYTHON_VER="3.11"
+# Accepts a desired Python version as build argument, default to 3.12
+ARG PYTHON_VER="3.12"
 
 # Retrieve published development image of Nautobot base which should include most CI dependencies
 FROM ghcr.io/nautobot/nautobot-dev:${NAUTOBOT_VER}-py${PYTHON_VER}
@@ -54,14 +55,16 @@ WORKDIR /source
 COPY . /source
 
 # Build args must be declared in each stage
+ARG NAUTOBOT_VER
 ARG PYTHON_VER
 
-# Constrain the Nautobot version to NAUTOBOT_VER
+# Constrain the Nautobot version to NAUTOBOT_VER, fall back to installing from git branch if not available on PyPi
 # In CI, this should be done outside of the Dockerfile to prevent cross-compile build failures
 ARG CI
 RUN if [ -z "${CI+x}" ]; then \
     INSTALLED_NAUTOBOT_VER=$(pip show nautobot | grep "^Version" | sed "s/Version: //"); \
-    poetry add --lock nautobot@${INSTALLED_NAUTOBOT_VER} --python ${PYTHON_VER}; fi
+    poetry add --lock nautobot@${INSTALLED_NAUTOBOT_VER} --python ${PYTHON_VER} || \
+    poetry add --lock git+https://github.com/nautobot/nautobot.git#${NAUTOBOT_VER} --python ${PYTHON_VER}; fi
 
 # Install the app
 RUN poetry install --extras all --with dev

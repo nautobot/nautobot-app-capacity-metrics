@@ -10,8 +10,6 @@
         "project_slug": "nautobot-app-capacity-metrics",
         "repo_url": "https://github.com/nautobot/nautobot-app-capacity-metrics",
         "base_url": "capacity-metrics",
-        "min_nautobot_version": "2.0.0",
-        "max_nautobot_version": "2.9999",
         "camel_name": "NautobotCapacityMetrics",
         "project_short_description": "App to improve the instrumentation of Nautobot and expose additional metrics (Application Metrics, RQ Worker).",
         "model_class_name": "None",
@@ -21,15 +19,13 @@
         "_drift_manager": {
             "template": "https://github.com/nautobot/cookiecutter-nautobot-app.git",
             "template_dir": "nautobot-app",
-            "template_ref": "refs/tags/nautobot-app-v2.3.2",
+            "template_ref": "nautobot-app-v2.7.1",
             "cookie_dir": "",
             "branch_prefix": "drift-manager",
-            "pull_request_strategy": "create",
-            "post_actions": [
-                "ruff"
-            ],
-            "draft": true,
-            "baked_commit_ref": "bc84e370cfb9fc030198279d80f03c64666aed20"
+            "pull_request_strategy": "update-or-create",
+            "post_actions": [],
+            "draft": false,
+            "baked_commit_ref": "7f756d30f9c36656a755424929930db3feb1644d"
         }
     }
 }
