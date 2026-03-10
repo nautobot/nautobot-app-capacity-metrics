@@ -7,7 +7,12 @@ This document provides an overview of the App including critical information and
 
 ## Description
 
+<<<<<<< HEAD
 An app for Nautobot that is meant to provide the ability to expose additional metrics for your Nautobot deployment along with the ability to build custom metrics.
+=======
+![Main Page](../media/ss_main_page_light.png#only-light)
+![Main Page](../media/ss_main_page_dark.png#only-dark)
+>>>>>>> 6078af9 (Cookie updated targeting develop by NetworkToCode Cookie Drift Manager Tool)
 
 ## Audience (User Personas) - Who should use this App?
 
