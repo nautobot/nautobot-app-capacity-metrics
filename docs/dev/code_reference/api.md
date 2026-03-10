@@ -1,5 +1,3 @@
 # Metrics & Monitoring Extension App API Package
-
-::: nautobot_capacity_metrics.api
-    options:
-        show_submodules: True
+!!! warning "Developer Note - Remove Me!"
+    This app does not expose a REST API (no model was defined).
