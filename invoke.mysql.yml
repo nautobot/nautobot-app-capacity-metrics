@@ -1,7 +1,7 @@
 ---
 nautobot_capacity_metrics:
   project_name: "nautobot-capacity-metrics"
-  nautobot_ver: "next"  # TODO: Change to 3.0.0 after v3.0.0 is released
+  nautobot_ver: "3.0.0"
   local: false
   python_ver: "3.12"
   compose_dir: "development"
