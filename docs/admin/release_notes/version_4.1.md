@@ -4,12 +4,14 @@ This document describes all new features and changes in the release. The format 
 
 ## Release Overview
 
-- Major features or milestones
-- Changes to compatibility with Nautobot and/or other apps, libraries etc.
+- Added support for Python 3.14.
 
 <!-- towncrier release notes start -->
-
 ## [v4.1.0 (2026-03-12)](https://github.com/nautobot/nautobot-app-capacity-metrics/releases/tag/v4.1.0)
+
+### Added
+
+- Added support for Python 3.14.
 
 ### Housekeeping
 
