@@ -16,4 +16,3 @@ Capacity Metrics is targeted for Nautobot application admins to provide addition
 ## Authors and Maintainers
 
 - David Flores @davidban77
-
